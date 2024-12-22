@@ -1,0 +1,16 @@
+<%#= render "shared/login_form" unless current_member%>
+
+<h2>カテゴリ</h2>
+<%
+  categories = Category.order(posted_at: :desc)
+%>
+<ul>
+  <% if categories.present? %>
+    <% categories.each do |c| %>
+      <li><%= link_to c.category_name, "#" %></li>
+    <% end %>
+  <% else %>
+    <li>カテゴリがありません</li>
+  <% end %>
+</ul>
+

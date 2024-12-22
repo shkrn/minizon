@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Minizon</title>
+    <title><%= page_title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,20 @@
   </head>
 
   <body>
-    <%= yield %>
+    
+      <header>
+        <%= render "shared/header" %>
+      </header>
+      <div id = "container">
+      <aside id = "sidebar">
+        <%= render "shared/sidebar" %>
+      </aside>
+      <main id="main-content">
+        <%= yield %>
+      </main>
+      </div>
+      <footer>
+        <%= render "shared/footer" %>
+      </footer>
   </body>
 </html>

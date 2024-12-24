@@ -1,0 +1,55 @@
+<%#= render "shared/errors", obj: @item %>
+<table class="attr">
+  <tr>
+    <th><%= form.label :new_item_picture, "商品画像" %></th>
+    <td>
+      <div><%= form.file_field :new_item_picture %></div>
+      <% if @item.item_picture.attached? %>
+        <div>
+          <%= image_tag @item.item_picture.variant(resize: "128x128") %>
+          <%= form.check_box :remove_item_picture %>
+          <%= form.label :remove_item_picture, "画像を削除" %>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= form.label :id, "商品ID" %></th>
+    <td><%= @item.id %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :name, "商品名" %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :category_id, "カテゴリ" %></th>
+    <td>
+        <% options = Category.all.map{|c| [c.category_name, c.id]} %>  
+        <%= form.select :category_id,options %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= form.label :code, "コード" %></th>
+    <td><%= form.text_field :code  %></td>
+  <tr>
+    <th><%= form.label :stock, "在庫数" %></th>
+    <td><%= form.number_field :stock %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :price, "価格（税込）" %></th>
+    <td><%= form.number_field :price %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :new, "コンディション" %></th>
+    <td><%= form.select :new, [["中古",0],["新品",1]] %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :status, "出品状態" %></th>
+    <td><%= form.select :status, [["販売停止",0],["販売中",1]] %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :description, "商品説明" %></th>
+    <td><%= form.text_area :description, cols:100,rows:6 %></td>
+  </tr>
+  </tr>
+</table>

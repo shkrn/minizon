@@ -1,0 +1,156 @@
+body {
+    font-family: sans-serif; /* 近似のフォント */
+    margin: 20px;
+  }
+
+  .category {
+    --category-color: #5d5d5d;
+
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: #008000;
+    a.category:link {
+        color: var(--category-color); /* 訪問前の色を青に変更 */
+      }
+    a.category:hover {
+        color: var(--category-color); /* ホバー時の色を変更 */
+      }
+    a.category:visited {
+        color: var(--category-color); /* 訪問後の色を変更 */
+      }
+  }
+  
+  
+  .product-container {
+    display: flex;
+    border: 1px #ffffff; /* 外枠 */
+    padding: 20px;
+  }
+  
+  .product-container hr {
+    border: 0.8px solid rgb(234,236,236);
+  }
+  .product-image {
+    width: 30%; /* 比率で指定 */
+    margin-right: 20px;
+  }
+  
+  .product-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .product-details {
+    width: 40%;
+    margin-right: 20px;
+  }
+  
+  .product-title {
+    font-size: 1.5em; /* 比率で指定 */
+    font-weight: normal;
+    margin-bottom: 10px;
+    color: black;
+    border-bottom: 1px solid rgb(234,236,236); /* 下線を追加 */
+  }
+  
+  .product-price-box {
+    width: 220px;
+    border: 1px solid #ddd; /* 右のボックス */
+    padding: 35px;
+    text-align: center;
+    border-radius: 10px;
+  }
+  
+  .product-status {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #008000
+  }
+  .product-price {
+    font-size: 1.5em;
+    font-weight: normal;
+    margin-bottom: 10px;
+  }
+  
+  .buy-button {
+    background-color: rgb(248, 218, 78); /* 近似の色 */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 100px;
+    font-size: 1em;
+    transition: background-color 0.3s ease; /* ホバーエフェクト */
+  }
+  .buy-button:hover {
+    background-color: rgb(238,204,62);
+}
+
+
+  table.seller-info {
+    padding: 20px;
+    font-size: 70%;
+    width: 100%;
+  }
+
+  table.seller-info th {
+    text-align: left;
+    color: #a5a5a5
+  }
+  table.seller-info td {
+    text-align: left;
+  }
+
+  .item-info {
+    margin-bottom: 10px;
+    font-size: 0.8em;
+  }
+  .item-info h3 {
+    border-top: 1.5px solid rgb(234,236,236);
+    padding: 10px;
+  }
+  .item-info table {
+    width: 40%; /* 必要に応じて幅を指定 */
+    margin-top: 20px; /* タイトルからのオフセット */
+    margin-left: 20px; /* 左からのオフセット */
+    border-collapse: collapse; /* セル間の余白をなくす */
+    background-color: white; /* 背景色を白に */
+  }
+  .item-info table th, .item-info table td {
+    padding: 8px; /* セル内の余白 */
+    text-align: left; /* テキストを左寄せ */
+  }
+  .item-info table tr {
+    border-bottom: 1px solid #ddd; /* 下線を追加 */
+    width: 10%; /* 見出し列の幅を調整 */
+  }
+  .item-info p {
+    margin-left: 20px; /* 左からのオフセット */
+    font-size: 1.1em;
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    .product-container {
+      flex-direction: column;
+      padding: 3%;
+    }
+    .product-image, .product-details, .product-price-box {
+      width: 100%;
+      margin: 10px 0;
+    }
+    .product-price-box {
+      width: 80%;
+      margin: auto;
+      text-align: center;
+      padding: 20px;
+      margin-bottom: 5%;
+    }
+    .item-info table {
+      width: 90%; /* 必要に応じて幅を指定 */
+      }
+    .item-info table tr {
+      width: 30%; /* 見出し列の幅を調整 */
+    }
+  }
+

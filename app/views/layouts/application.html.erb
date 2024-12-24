@@ -20,6 +20,9 @@
         <%= render "shared/sidebar" %>
       </aside>
       <main id="main-content">
+        <% if flash.notice %>
+          <p class="notice"><%= flash.notice %></p>
+          <% end %>
         <%= yield %>
       </main>
       </div>

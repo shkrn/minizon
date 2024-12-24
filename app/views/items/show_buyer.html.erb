@@ -1,0 +1,81 @@
+<% @page_title = @item.name %>
+
+<div class="category">
+  <%= link_to @item.category.category_name, "#", class: "category" %>
+</div>
+<div class="product-container">
+  <div class="product-image">
+    <% if @item.item_picture.attached? %>
+      <%= image_tag @item.item_picture.variant(resize: "500x500") %>
+    <% end %>
+  </div>
+  <div class="product-details">
+    <h2 class="product-title"><%= @item.name %></h2>
+    <p></p>
+    <div class="product-price">¥<%= @item.price %> 税込</div>
+    <hr>
+    <p><%= @item.description %></p>
+    <hr>
+    <p>この商品に関する問題を報告する</p>
+  </div>
+  <div class="product-price-box">
+    <div class="product-condition"><%= @item.new %></div>
+    <div class="product-price">¥<%= @item.price %> 税込</div>
+    <div class="product-status"><%= @item.status %></div>
+    <button class="buy-button">カートに入れる</button>
+    <table class = "seller-info">
+      <tr>
+        <th>出品者</th>
+        <td><%=link_to @item.user.business_name , "#"%></td>
+      </tr>
+      <tr>
+        <th>出品者の評価</th>
+        <td>★★★★★</td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="item-info">
+  <h3>詳細情報</h3>
+  <table class = "item-info-table">
+      <tr>
+        <th width="150"> 商品ID</th>
+        <td><%= @item.id %></td>
+      </tr>
+      <tr>
+        <th>商品名</th>
+        <td><%= @item.name %></td>
+      </tr>
+      <tr>
+        <th>コード</th>
+        <td><%= @item.code %></td>
+      </tr>
+      <tr>
+        <th>カテゴリ</th>
+        <td><%= @item.category.category_name %></td>
+      </tr>
+      <tr>
+        <th>在庫数</th>
+        <td><%= @item.stock %></td>
+      </tr>
+      <tr>
+        <th>価格（税込）</th>
+        <td><%= @item.price %></td>
+      </tr>
+      <tr>
+        <th>コンディション</th>
+        <td><%= @item.new %></td>
+      </tr>
+      <tr>
+        <th>出品状態</th>
+        <td><%= @item.status %></td>
+      </tr>
+      <tr>
+        <th>最終更新日時</th>
+        <td><%= @item.updated_at %></td>
+      </tr>
+    </table>
+  <h3>商品説明</h3>
+  <p><%= @item.description %></p>
+</div>
+</html>

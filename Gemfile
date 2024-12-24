@@ -26,6 +26,16 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 gem "bcrypt", "~> 3.1.7"
 
+gem "kaminari"
+
+gem "kaminari-i18n"
+
+gem "image_processing", "~> 1.2"
+gem "mini_magick", "~> 4.8"
+
+gem "better_errors"
+gem "binding_of_caller"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

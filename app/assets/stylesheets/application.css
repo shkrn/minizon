@@ -83,6 +83,9 @@ main#main-content {
 
 /* レスポンシブデザインの設定 */
 @media (max-width: 768px) {
+  main#main-content {
+    margin: 2%; /* 外側の余白を追加 */
+  }
   div#container {
     flex-direction: column; /* 縦方向に並べる */
   }

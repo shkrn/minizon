@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   root "top#index"
 
   resources :users
+  resources :items do
+    get :search, on: :collection
+  end
   resource :session, only: [:create, :destroy]
   resource :account, only: [:show, :edit, :update, :new, :create]
 end

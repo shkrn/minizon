@@ -5,16 +5,21 @@ family_en = ["Yamada", "Sato", "Suzuki", "Tanaka", "Ito", "Watanabe", "Takahashi
 
 
 10.times do |i|
+    if i == 2
+        status_value = 1
+    else
+        status_value = 0
+    end
     User.create!(
         full_name: "#{family[i]} #{given[i]}",
         family_name: family[i],
         given_name: given[i],
-        bussiness_name: "#{family[i]}商事",
+        business_name: "#{family[i]}商事",
         email: "#{family_en[i].downcase}#{i}@example.com",
         password: "miyazon!",
         password_confirmation: "miyazon!",
         address: "東京都新宿区#{i}-#{i}-#{i}",
         phonenumber: "0901111#{i}#{i}#{i}",
-        status: 0
+        status: status_value
     )
 end

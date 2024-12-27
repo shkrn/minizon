@@ -6,6 +6,9 @@ class User < ApplicationRecord
 
     after_create :create_cart
 
+    attr_accessor :current_password
+    validates :password, presence: { if: :current_password }
+
   private
 
   def create_cart

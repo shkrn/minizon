@@ -41,6 +41,6 @@
   </tr>
   <tr>
     <th>ユーザー種別</th>
-    <td><%= @user.status == 1 ? "出品者" : "購入者" %></td>
+    <td><%= @user.seller? ? "出品者" : "購入者" %></td>
   </tr>
 </table>

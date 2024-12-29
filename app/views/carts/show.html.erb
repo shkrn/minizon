@@ -1,0 +1,36 @@
+<% @page_title = "ショッピングカート" %>
+
+  <div class="cart-container">
+    <div class="cart-items">
+    <h1>ショッピングカート</h1>
+      <% @cart_items.each do |ci| %>
+        <div class="cart-item">
+          <div class="item-image">
+            <% if ci.item.item_picture.attached? %>
+            <%= image_tag ci.item.item_picture.variant(resize: "100x100") %>
+            <% end %> 
+          </div>
+          <div class="item-details">
+            <h3 class="item-title"><%= link_to ci.item.name, ci.item %></h3>
+            <div class="item-quantity">
+            
+            <span><%= ci.quantity %></span>
+            
+            <%= link_to "削除", ci, method: :delete, data: { confirm: "削除しますか？" } %> 
+          </div>
+          </div>
+          <div class="item-price">
+            <span><%= number_to_currency(ci.item.price, unit: "¥")%></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="cart-total">
+      
+      <h3>小計 (<%= @cart_items.sum(:quantity) %>個の商品)(税込)</h3>
+      <div class="total-price">
+        <span>: <%= currency%><%= current_cart.price %></span>
+      </div>
+      <button>レジに進む</button>
+    </div>
+  </div>

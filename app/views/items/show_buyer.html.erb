@@ -12,25 +12,22 @@
   <div class="product-details">
     <h2 class="product-title"><%= @item.name %></h2>
     <p></p>
-    <div class="product-price">¥<%= @item.price %> 税込</div>
+    <div class="product-price"><%= currency%><%= @item.price %> 税込</div>
     <hr>
     <p><%= @item.description %></p>
     <hr>
     <p>この商品に関する問題を報告する</p>
   </div>
   <div class="product-price-box">
-    <div class="product-condition"><%= @item.new %></div>
-    <div class="product-price">¥<%= @item.price %> 税込</div>
-    <div class="product-status"><%= @item.status %></div>
-    <button class="buy-button">カートに入れる</button>
     <div class="item">
-      <h3><%= @item.name %></h3>
-      <p><%= @item.price %>円</p>
+    <div class="product-condition"><%= @item.new %></div>
+    <div class="product-price"><%= currency%><%= @item.price %> 税込</div>
+    <div class="product-status"><%= @item.status %></div>
         <%= form_with url: cart_items_path, local: true do |form| %>
           <%= form.hidden_field :item_id, value: @item.id %>
           <% options = (1..[@item.stock, 10].min).to_a %> 
           <%= form.select :quantity, options  %>
-          <%= form.submit "カートに入れる" %>
+          <%= form.submit "カートに入れる", class: "buy-button" %>
         <% end %>
     </div>
     <table class = "seller-info">

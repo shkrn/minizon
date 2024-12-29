@@ -20,7 +20,7 @@
       <% if current_user&.seller? %>
         <%= menu_link_to "出品管理", :items %>
       <% else %>
-        <%= menu_link_to "カート", "#" %>
+        <%= menu_link_to "カート", :cart %>
       <% end %>
     </ul>
 </nav>

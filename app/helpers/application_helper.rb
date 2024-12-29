@@ -1,8 +1,15 @@
 module ApplicationHelper
-    def page_title
+    def service_name
         title = "SenMall"
-        title = @page_title + " - " + title if @page_title
         title
+    end
+    def page_title
+        title = @page_title + " - " + service_name if @page_title
+        title
+    end
+    def currency
+        currency = "¥"
+        currency
     end
     def menu_link_to(text, path, options = {})
         content_tag :li do

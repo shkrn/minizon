@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+        before_action :login_required, only: [:new, :create, :edit, :update, :destroy]
     def index
         @items = Item.order("id")
     end

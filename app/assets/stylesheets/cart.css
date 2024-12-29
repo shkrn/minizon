@@ -1,0 +1,78 @@
+.cart-container {
+  display: flex; /* カートアイテムとサマリーを横並びにする */
+  width: 90%; /* 親要素に対する比率で幅を指定 */
+  margin: 20px auto; /* 中央寄せ */
+}
+.cart-items{
+    flex: 2; /* カートアイテム部分が幅を大きく取る */
+    border: 1px solid #ccc; /* 薄い境界線 */
+    padding: 10px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center; /* 縦方向中央揃え */
+  padding: 10px;
+  border-bottom: 1px solid #eee; /* 下線 */
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.item-image {
+  width: 100px; /* 比率で指定する場合は例：20% */
+  margin-right: 10px;
+}
+
+.item-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.item-details {
+  flex-grow: 1; /* 詳細部分が伸び縮みするように */
+}
+
+.item-title {
+  font-size: 1.2em; /* 比率で指定 */
+  margin-bottom: 5px;
+}
+
+.item-quantity {
+    display: flex;
+    align-items: center;
+}
+
+.item-quantity button{
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.item-price {
+  white-space: nowrap; /* 価格が改行しないように */
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.cart-total {
+  flex: 1; /* サマリー部分 */
+  border: 1px solid #ccc; /* 薄い境界線 */
+  padding: 10px;
+  margin-left: 20px;
+  height: fit-content;
+}
+
+.cart-total h3{
+    margin-bottom: 10px;
+}
+
+.total-price{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

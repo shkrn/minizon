@@ -28,20 +28,20 @@
     </thead>
     <tbody>
       <% @items.each do |item| %>
-        <tr>
-          <td style="text-align: right"><%= item.id %></td>
-          <td><%= link_to item.name, item %></td>
-          <td><%= item.code %></td>
-          <td><%= link_to item.category.category_name %></td>
-          <td><%= item.stock %></td>
-          <td><%= number_to_currency(item.price, unit: "¥") %></td>
-          <td><%= item.new %></td>
-          <td><%= item.status %></td>
-          <td>
-            <%= link_to "編集", edit_item_path(item) %> |
-            <%= link_to "削除", item, method: :delete, data: { confirm: "削除しますか？" } %>
-          </td>
-        </tr>
+          <tr>
+            <td style="text-align: right"><%= item.id %></td>
+            <td><%= link_to item.name, item %></td>
+            <td><%= item.code %></td>
+            <td><%= link_to item.category.category_name %></td>
+            <td><%= item.stock %></td>
+            <td><%= number_to_currency(item.price, unit: "¥") %></td>
+            <td><%= item.new %></td>
+            <td><%= item.status %></td>
+            <td>
+              <%= link_to "編集", edit_item_path(item) %> |
+              <%= link_to "削除", item, method: :delete, data: { confirm: "削除しますか？" } %>
+            </td>
+          </tr>
       <% end %>
     </tbody>
   </table>

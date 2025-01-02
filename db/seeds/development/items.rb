@@ -2,7 +2,7 @@ items = ["item1", "item2", "item3", "item4", "item5", "item6", "item7", "item8",
 
 items.each_with_index do |i, index|
     Item.create!(
-        user_id: 2,
+        user_id: 3,
         category_id: 1,
         name: i,
         code: index + 1,

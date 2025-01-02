@@ -13,6 +13,6 @@ class FavoriteItemsController < ApplicationController
       def destroy
         @favorite_item = current_user.favorite_items.find(params[:id])
         @favorite_item.destroy
-        redirect_back(fallback_location: root_path)
+        redirect_back(fallback_location: root_path, notice: "お気に入りから削除しました")
       end
 end

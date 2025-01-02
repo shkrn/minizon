@@ -1,16 +1,1 @@
-<h1>お気に入り商品</h1>
-
-<% if @favorite_items.present? %>
-  <div class="favorite_item-list">
-    <% @favorite_items.each do |favorite_item| %>
-      <div class="favorite_item-item">
-        <%= link_to favorite_item.item.name, item_path(favorite_item.item) %>
-        <p><%= favorite_item.item.price %>円</p>
-        <%# お気に入り解除ボタンなど %>
-         <%= button_to "お気に入り解除", item_favorite_item_path(favorite_item.item.id, favorite_item.id), method: :delete %>
-      </div>
-    <% end %>
-  </div>
-<% else %>
-  <p>お気に入り商品はありません。</p>
-<% end %>
+<%= render "favorite_items/index" %>

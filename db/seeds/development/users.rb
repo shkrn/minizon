@@ -5,7 +5,7 @@ family_en = ["Yamada", "Sato", "Suzuki", "Tanaka", "Ito", "Watanabe", "Takahashi
 
 
 10.times do |i|
-    if i == 2
+    if i == 0 || i == 1 || i == 2
         status_value = 1
     else
         status_value = 0

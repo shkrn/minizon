@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     resources :reviews, only: [:index, :destroy, :edit, :update]
     resources :favorite_items, only: [:index]
     resources :favorite_users, only: [:index, :create, :destroy]
+    collection do
+      get 'favorites' # これを追加
+    end
   end
 
   resources :items do
@@ -28,5 +31,6 @@ Rails.application.routes.draw do
   resources :order_items
 
   post "order/confirm" => "orders#confirm"
+
   
 end

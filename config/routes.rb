@@ -6,8 +6,6 @@ Rails.application.routes.draw do
 
   root "top#index"
 
-  resources :users
-
   resources :users do
     resources :reviews, only: [:index, :destroy, :edit, :update]
     resources :favorite_items, only: [:index]
@@ -28,8 +26,6 @@ Rails.application.routes.draw do
   resources :cart_items
   resources :orders
   resources :order_items
-
-  resources :favorite_users
 
   post "order/confirm" => "orders#confirm"
   

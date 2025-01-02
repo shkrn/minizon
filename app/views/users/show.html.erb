@@ -1,0 +1,64 @@
+<% @page_title = "ストアフロント" %>
+
+<h1><%= @page_title %></h1>
+
+<ul class="toolbar">
+  <%= menu_link_to "出品商品一覧",  "#" %>
+
+  <% if current_user.favorite_users.exists?(favorite_user_id: @user.id) %>
+    <%= menu_link_to "お気に入りを解除", user_favorite_user_path(@user),method: :delete%>
+  <% else %>
+    <%= menu_link_to "お気に入りに追加", user_favorite_users_path(@user),method: :post %>
+  <% end %>
+  
+  
+</ul>
+
+<% if @user.seller? %>
+  <table class="attr">
+    <!--
+    <tr>
+      <th>プロフィール画像</th>
+      <td>
+        <%# if @user.profile_picture.attached? %>
+          <%#= image_tag @user.profile_picture.variant(resize:"128x128") %>
+        <%# end %>
+      </td>
+    </tr>
+    -->
+    <tr>
+      <th>ビジネスネーム</th>
+      <td><%= @user.business_name %></td>
+    </tr>
+    <tr>
+      <th width="150">ユーザー番号</th>
+      <td><%= @user.id %></td>
+    </tr>
+    <tr>
+      <th>氏名</th>
+      <td><%= @user.full_name %></td>
+    </tr>
+    <tr>
+      <th>メールアドレス</th>
+      <td><%= @user.email %></td>
+    </tr>
+    <tr>
+      <th>住所</th>
+      <td><%= @user.address %></td>
+    </tr>
+    <tr>
+      <th>電話番号</th>
+      <td><%= @user.phonenumber %></td>
+    </tr>
+    <!--<tr>
+      <th>ユーザー種別</th>
+      <td><%= @user.seller? ? "出品者" : "購入者" %></td>
+    </tr>-->
+  </table>
+<% elsif @user.buyer? %>
+  <p>このユーザーは出品者ではありません。</p>
+  <tr>
+      <th>ユーザー種別</th>
+      <td><%= @user.seller? ? "出品者" : "購入者" %></td>
+    </tr>
+<% end %>

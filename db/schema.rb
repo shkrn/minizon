@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_30_021423) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_02_125119) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -64,6 +64,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_30_021423) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "favorite_items", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_favorite_items_on_item_id"
+    t.index ["user_id"], name: "index_favorite_items_on_user_id"
+  end
+
+  create_table "favorite_users", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "favorite_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["favorite_user_id"], name: "index_favorite_users_on_favorite_user_id"
+    t.index ["user_id"], name: "index_favorite_users_on_user_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "category_id", null: false
@@ -101,6 +119,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_30_021423) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "item_id", null: false
+    t.integer "rating", null: false
+    t.text "content"
+    t.boolean "report", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_reviews_on_item_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "full_name", null: false
     t.string "family_name", null: false
@@ -120,9 +150,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_30_021423) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "items"
   add_foreign_key "carts", "users"
+  add_foreign_key "favorite_items", "items"
+  add_foreign_key "favorite_items", "users"
+  add_foreign_key "favorite_users", "users"
+  add_foreign_key "favorite_users", "users", column: "favorite_user_id"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "users"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"
+  add_foreign_key "reviews", "items"
+  add_foreign_key "reviews", "users"
 end

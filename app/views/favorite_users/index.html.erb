@@ -1,0 +1,15 @@
+<h1>お気に入り出品者</h1>
+
+<% if @favorite_users.present? %>
+  <div class="favorite_user-list">
+    <% @favorite_users.each do |fu| %>
+      <div class="fu-item">
+        <%= link_to fu.favorite_user.business_name, user_path(fu.favorite_user) %>
+        <%# お気に入り解除ボタンなど %>
+        <%= button_to "お気に入り解除", user_favorite_user_path(current_user,fu.favorite_user), method: :delete %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>お気に入り商品はありません。</p>
+<% end %>

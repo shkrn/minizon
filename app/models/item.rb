@@ -2,6 +2,7 @@ class Item < ApplicationRecord
     belongs_to :user
     belongs_to :category
     has_many :cart_items, dependent: :destroy
+    has_many :order_items
     has_one_attached :item_picture
     attribute :new_item_picture
     attribute :remove_item_picture

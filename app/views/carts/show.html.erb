@@ -31,6 +31,13 @@
       <div class="total-price">
         <span>: <%= currency%><%= current_cart.price %></span>
       </div>
-      <button>レジに進む</button>
+      <%= form_with url: order_confirm_path, local: true do |form| %>
+        <% @cart_items.each do |ci| %>
+          <%= form.hidden_field :item_id, value: ci.id %> 
+          <%= form.hidden_field :quantity, value: ci.quantity %>
+          <%= form.hidden_field :price, value: ci.price %>
+        <% end %> 
+        <%= form.submit "レジに進む", class: "buy-button" %>
+      <% end %>
     </div>
   </div>

@@ -1,0 +1,49 @@
+<h1>注文履歴</h1>
+
+<% @orders.each do |order| %>
+  <div class="order">
+    <h2>注文ID: <%= order.id %></h2>
+    <p>注文日時: <%= order.created_at.strftime("%Y年%m月%d日 %H:%M") %></p>
+
+    <h3>注文商品</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>商品名</th>
+          <th>数量</th>
+          <th>単価</th>
+          <th>小計</th>
+          <th>配送状況</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% order.order_items.each do |order_item| %>
+          <tr>
+            <td><%= order_item.item.name %></td> <%# itemモデルとの関連付けを想定 %>
+            <td><%= order_item.quantity %></td>
+            <td><%= order_item.price %></td>
+            <td><%= order_item.quantity * order_item.price %></td>
+            <td><%= order_item.delivery %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">合計</td>
+          <td><%= order.order_items.sum { |oi| oi.quantity * oi.price } %></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+     <%# 注文ステータスや配送先情報など、必要に応じて追加 %>
+
+     
+
+  </div>
+  <hr> <%# 注文ごとの区切り線 %>
+<% end %>
+
+<% if @orders.empty? %>
+  <p>注文履歴はありません。</p>
+<% end %>

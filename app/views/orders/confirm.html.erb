@@ -1,0 +1,73 @@
+<% content_for :layout do %>
+  <% end %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= page_title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "cart_confirm" %>
+    <%= javascript_include_tag "application", defer: true %>
+    </head>
+
+    <body>
+        <header class="header">
+            <h1 class="header-title">チェックアウト</h1>
+        </header>
+    <div class="checkout-container">
+        <div class="checkout-left">
+            <div class="card delivery-card">
+                <h2>お届け先</h2>
+                <p><strong>お名前:</strong> <%= current_user.full_name %></p>
+                <p><strong>住所:</strong> <%= current_user.address %></p>
+                <p><strong>電話番号:</strong> <%= current_user.phonenumber %></p>
+            </div>
+
+
+            <div class="card item-card">
+                <h2>ご注文商品</h2>
+                <% @cart_items.each do |ci| %>
+                    <div class="cart-item">
+                    <div class="item-image">
+                        <% if ci.item.item_picture.attached? %>
+                        <%= image_tag ci.item.item_picture.variant(resize: "100x100") %>
+                        <% end %> 
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-title"><%= link_to ci.item.name, ci.item %></h3>
+                        <div class="item-quantity">
+                        
+                        <span>数量：<%= ci.quantity %></span>
+                    </div>
+                    </div>
+                    <div class="item-price">
+                        <span><%= number_to_currency(ci.item.price, unit: "¥")%></span>
+                    </div>
+                    </div>
+                <% end %>
+            </div>
+
+            
+        </div>
+        <div class="checkout-right">
+            <div class="card purchase-card">
+                <h2>ご注文内容</h2>
+                <table class = "price-info">
+                    <tr>
+                        <th>ご請求額：</th>
+                        <td><p><%=currency%><%= current_cart.price%></p></td>
+                    </tr>
+                </table>
+                <%= form_with url: orders_path,local: true do |form| %>
+                    <%= form.hidden_field :user_id, value: current_user.id %>
+                    <%= form.hidden_field :quantity, value: current_cart.cart_items.sum(:quantity)  %>
+                    <%= form.hidden_field :total_price, value: current_cart.price %>
+                    <%= form.submit "注文を確定する", class: "buy-button" %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

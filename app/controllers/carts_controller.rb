@@ -16,7 +16,7 @@ class CartsController < ApplicationController
     end
 
     def create
-
+        
     end
 
     def update
@@ -28,6 +28,6 @@ class CartsController < ApplicationController
     end
 
     def add
-        
+
     end
 end

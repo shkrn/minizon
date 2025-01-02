@@ -15,7 +15,7 @@
         <%= menu_link_to "ログイン", "#" %>
       <% end %>
       <%= menu_link_to "お気に入り", "#" %>
-      <%= menu_link_to "購入履歴", "#" %>
+      <%= menu_link_to "注文履歴", :order %>
       <%= menu_link_to "マイページ", "#" %>
       <% if current_user&.seller? %>
         <%= menu_link_to "出品管理", :items %>

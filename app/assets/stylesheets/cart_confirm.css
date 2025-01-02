@@ -1,0 +1,137 @@
+
+/* ヘッダーのスタイル */
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}
+
+
+.header {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+.header-title {
+  margin: 0;
+}
+
+
+.checkout-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center; /* 横方向にセンタリング */
+}
+
+.checkout-left {
+  /* flex: 4; */
+  flex: 0 0 600px;
+  
+}
+
+.checkout-right {
+  flex: 0 300px;
+  
+}
+
+.card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px;
+}
+
+.buy-button {
+  background-color: rgb(248, 218, 78); /* 近似の色 */
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 100px;
+  font-size: 1em;
+  transition: background-color 0.3s ease; /* ホバーエフェクト */
+}
+
+table.price-info {
+  padding: 5px;
+  font-size: 100%;
+  width: 100%;
+}
+
+table.price-info th {
+  text-align: left;
+  color: #000000
+}
+table.price-info td {
+  text-align: right;
+}
+
+/*-----------------------------*/
+.cart-items{
+  flex: 2; /* カートアイテム部分が幅を大きく取る */
+  border: 1px solid #ccc; /* 薄い境界線 */
+  padding: 10px;
+}
+
+.cart-item {
+display: flex;
+align-items: center; /* 縦方向中央揃え */
+padding: 10px;
+border-bottom: 1px solid #eee; /* 下線 */
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.item-image {
+width: 100px; /* 比率で指定する場合は例：20% */
+margin-right: 10px;
+}
+
+.item-image img {
+max-width: 100%;
+height: auto;
+}
+
+.item-details {
+flex-grow: 1; /* 詳細部分が伸び縮みするように */
+}
+
+.item-title {
+font-size: 1.2em; /* 比率で指定 */
+margin-bottom: 5px;
+}
+
+.item-quantity {
+  display: flex;
+  align-items: center;
+}
+
+.item-price {
+white-space: nowrap; /* 価格が改行しないように */
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+
+
+/* レスポンシブデザイン対応 (例) */
+@media (max-width: 768px) {
+  .checkout-container {
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+  }
+  .checkout-left {
+    /* flex: 4; */
+    flex: 1;
+    
+  }
+}

@@ -3,6 +3,7 @@ class User < ApplicationRecord
     has_many :items, dependent: :destroy
     enum status: { buyer: 0, seller: 1 }
     has_one :cart, dependent: :destroy
+    has_many :orders, dependent: :destroy
 
     after_create :create_cart
 

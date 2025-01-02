@@ -3,6 +3,10 @@ class Item < ApplicationRecord
     belongs_to :category
     has_many :cart_items, dependent: :destroy
     has_many :order_items
+    has_many :reviews, dependent: :destroy
+    has_many :favorite_items, dependent: :destroy
+
+
     has_one_attached :item_picture
     attribute :new_item_picture
     attribute :remove_item_picture

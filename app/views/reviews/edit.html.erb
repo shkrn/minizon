@@ -1,0 +1,20 @@
+<% @page_title = "レビューの編集" %>
+<h1><%= @page_title %></h1>
+
+    <div class="cart-item">
+        <div class="item-image">
+            <% if @review.item.item_picture.attached? %>
+            <%= image_tag @review.item.item_picture.variant(resize: "100x100") %>
+            <% end %> 
+        </div>
+        <div class="item-details">
+            <h3 class="item-title"><%= link_to @review.item.name, @review.item %></h3>
+        </div>
+    </div>
+
+<% if @review.item.reviews.find { |review| review.user_id == current_user.id } %>
+    <%= form_for [@review.item,@review] do |form| %>
+    <%= render "form", form: form %>
+    <div><%= form.submit %></div>
+    <% end %>
+<% end %>

@@ -4,7 +4,9 @@ class User < ApplicationRecord
     enum status: { buyer: 0, seller: 1 }
     has_one :cart, dependent: :destroy
     has_many :orders, dependent: :destroy
-
+    has_many :reviews, dependent: :destroy
+    has_many :favorite_items, dependent: :destroy
+    has_many :favorite_users, dependent: :destroy
     after_create :create_cart
 
     attr_accessor :current_password

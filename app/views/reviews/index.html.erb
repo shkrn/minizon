@@ -1,0 +1,31 @@
+<h1>マイレビュー</h1>
+
+<% if @myreviews.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>商品名</th>
+        <th>評価</th>
+        <th>コメント</th>
+        <th>投稿日時</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @myreviews.each do |review| %>
+        <tr>
+          <td><%= link_to review.item.name, item_path(review.item) %></td>
+          <td><%= review.rating %></td>
+          <td><%= review.content %></td>
+          <td><%= review.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+          <td>
+              <%= link_to "編集", edit_user_review_path(current_user,review) %> |
+              <%= link_to "削除", user_review_path(current_user,review), method: :delete, data: { confirm: "削除しますか？" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>レビューはまだありません。</p>
+<% end %>

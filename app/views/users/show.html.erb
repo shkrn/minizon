@@ -2,19 +2,39 @@
 
 <h1><%= @page_title %></h1>
 
+<% if @user.seller? %>
 <ul class="toolbar">
   <%= menu_link_to "出品商品一覧",  "#" %>
 
-  <% if current_user.favorite_users.exists?(favorite_user_id: @user.id) %>
-    <%= menu_link_to "お気に入りを解除", user_favorite_user_path(@user),method: :delete%>
-  <% else %>
-    <%= menu_link_to "お気に入りに追加", user_favorite_users_path(@user),method: :post %>
+  <% if login? %>
+    <% if current_user.favorite_users.exists?(favorite_user_id: @user.id) %>
+      <%= menu_link_to "お気に入りを解除", user_favorite_user_path(@user),method: :delete%>
+    <% else %>
+      <%= menu_link_to "お気に入りに追加", user_favorite_users_path(@user),method: :post %>
+    <% end %>
+  
+  
+    <% unless @user.id == current_user.id %>
+      <% if @is_room == true %>
+        <%= link_to 'メッセージへ', room_path(@room_id) %>
+      <% else %>
+        <%= form_for @room do |f| %>
+          <%= fields_for @entry do |e| %>
+            <%= e.hidden_field :user_id, value: @user.id %>
+          <% end %>
+          <%= f.button type: :submit do %>
+            メッセージを送る
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
-  
-  
+
 </ul>
 
-<% if @user.seller? %>
+
+
+
   <table class="attr">
     <!--
     <tr>
@@ -56,9 +76,5 @@
     </tr>-->
   </table>
 <% elsif @user.buyer? %>
-  <p>このユーザーは出品者ではありません。</p>
-  <tr>
-      <th>ユーザー種別</th>
-      <td><%= @user.seller? ? "出品者" : "購入者" %></td>
-    </tr>
+  <p>このユーザーは出品者ではありませ
 <% end %>

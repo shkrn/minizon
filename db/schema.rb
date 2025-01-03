@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_02_125119) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_02_192643) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -64,6 +64,15 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_02_125119) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_entries_on_room_id"
+    t.index ["user_id"], name: "index_entries_on_user_id"
+  end
+
   create_table "favorite_items", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "item_id", null: false
@@ -96,6 +105,20 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_02_125119) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "item_id"
+    t.integer "room_id", null: false
+    t.text "message", null: false
+    t.string "subject"
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_messages_on_item_id"
+    t.index ["room_id"], name: "index_messages_on_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -131,6 +154,13 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_02_125119) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.integer "message_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_rooms_on_message_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "full_name", null: false
     t.string "family_name", null: false
@@ -150,15 +180,21 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_02_125119) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "items"
   add_foreign_key "carts", "users"
+  add_foreign_key "entries", "rooms"
+  add_foreign_key "entries", "users"
   add_foreign_key "favorite_items", "items"
   add_foreign_key "favorite_items", "users"
   add_foreign_key "favorite_users", "users"
   add_foreign_key "favorite_users", "users", column: "favorite_user_id"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "users"
+  add_foreign_key "messages", "items"
+  add_foreign_key "messages", "rooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"
   add_foreign_key "reviews", "items"
   add_foreign_key "reviews", "users"
+  add_foreign_key "rooms", "messages"
 end

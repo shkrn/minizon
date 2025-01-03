@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
         raise LoginRequired unless current_user
     end
 
-    private def login?
+    def login?
         !!current_user
     end 
 
@@ -25,5 +25,7 @@ class ApplicationController < ActionController::Base
             end
         end
     end
+
+    helper_method :login?
     helper_method :current_cart
 end

@@ -1,0 +1,23 @@
+<% @page_title = "問い合わせ" %>
+
+<h1><%= @page_title %></h1>
+
+<% if @another_entries.present? %>
+    <% @another_entries.each do |entry| %>
+    <%#= link_to room_path(entry.room) do %>
+        <div class="card">
+        <div class="card-body">
+                <div class="chat-user-name">
+                <%= link_to entry.user.display_name,room_path(entry.room) %>
+                </div>
+                <div class="chat-date">
+                <%#= entry.room.messages.last&.created_at&.strftime('%Y/%m/%d %H:%m') %>
+                </div>
+                <%#= link_to "削除",room_path(entry.room), method: :delete %>
+        </div>
+        </div>
+    <%# end %>
+    <% end %>
+<% else %>
+    <p>まだメッセージはありません。</p>
+<% end %>

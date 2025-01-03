@@ -1,0 +1,29 @@
+
+  <h2><%= "#{@another_entry.user.display_name}との問い合わせ" %></h2>
+
+
+<% if @messages.present? %>
+
+  <% @messages.each do |message| %>
+    <div>
+      <% if message.user.seller? %>
+      <%= link_to message.user.display_name, user_path(message.user_id) %>
+      <% else %>
+      <%= message.user.display_name %>
+        <% end %>
+      <% if message.user_id == current_user.id %>(自分)<% end %>
+      : <%= message.message %>
+    </div>
+  <% end %>
+<% else %>
+  <p>まだメッセージはありません。</p>
+<% end %>
+
+<hr>
+
+<%= form_for @message do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.text_field :message,placeholder: "メッセージを入力" %>
+  <%= f.hidden_field :room_id, value: @room.id %>
+  <%= f.submit "送信" %>
+<% end %>

@@ -41,5 +41,7 @@ module Minizon
     # the library used for image processing in Active Storage.
     config.active_storage.variant_processor = :mini_magick
 
+    config.i18n.default_locale = :ja
+
   end
 end

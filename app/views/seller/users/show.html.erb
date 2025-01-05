@@ -1,0 +1,36 @@
+<% @page_title = "購入者情報" %>
+
+<h1><%= @page_title %></h1>
+
+<ul class="toolbar">
+  
+
+  <% if login? %>
+    <!--
+    <% if current_user.favorite_users.exists?(favorite_user_id: @user.id) %>
+      <%= menu_link_to "お気に入りを解除", user_favorite_user_path(@user),method: :delete%>
+    <% else %>
+      <%= menu_link_to "お気に入りに追加", user_favorite_users_path(@user),method: :post %>
+    <% end %>
+    -->
+  
+  
+    <% unless @user.id == current_user.id %>
+      <% if @is_room == true %>
+        <%= link_to 'メッセージへ', room_path(@room_id) %>
+      <% else %>
+        <%= form_for @room do |f| %>
+          <%= fields_for @entry do |e| %>
+            <%= e.hidden_field :user_id, value: @user.id %>
+          <% end %>
+          <%= f.button type: :submit do %>
+            メッセージを送る
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+</ul>
+
+<%= render 'body' %>

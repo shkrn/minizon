@@ -1,3 +1,7 @@
 <%#= image_tag "logo.gif", size:"272x48", alt:"SenMall" %>
 
-<%= render "shared/menubar" %>
+<%= if controller.kind_of?(Seller::Base)
+    render "shared/seller_menubar" 
+    else 
+    render "shared/menubar"
+    end %>  

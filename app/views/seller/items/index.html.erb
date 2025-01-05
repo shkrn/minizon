@@ -1,4 +1,4 @@
-<% @page_title = "商品一覧" %>
+<% @page_title = "出品商品管理" %>
 <h1><%= @page_title %></h1>
 
 
@@ -8,6 +8,7 @@
   <%= submit_tag "検索" %>
 <% end %>
 
+<div class="toolbar"><%= link_to "出品商品情報の新規登録",:new_seller_item %></div>
 
 <% if @items.present? %>
   <table class="list">
@@ -21,6 +22,7 @@
         <th>価格（税込）</th>
         <th>コンディション</th>
         <th>出品状態</th>
+        <th>操作</th>
 
       </tr>
     </thead>
@@ -28,13 +30,17 @@
       <% @items.each do |item| %>
           <tr>
             <td style="text-align: right"><%= item.id %></td>
-            <td><%= link_to item.name, item %></td>
+            <td><%= link_to item.name, seller_item_path(item) %></td>
             <td><%= item.code %></td>
             <td><%= link_to item.category.category_name %></td>
             <td><%= item.stock %></td>
             <td><%= number_to_currency(item.price, unit: "¥") %></td>
             <td><%= item.new? ? "新品" : "中古" %></td>
             <td><%= I18n.t("enums.item.status.#{item.status}") %></td>
+            <td>
+              <%= link_to "編集", edit_seller_item_path(item) %> |
+              <%= link_to "削除", seller_item_path(item), method: :delete, data: { confirm: "削除しますか？" } %>
+            </td>
           </tr>
       <% end %>
     </tbody>

@@ -2,7 +2,11 @@
 
 <h1><%= @page_title %></h1>
 
-<div class="toolbar"><%= link_to "出品商品の一覧に戻る", items_path %></div>
+<div class="toolbar">
+<%= link_to "販売ページへ", item_path %>
+<%= link_to "編集", edit_seller_item_path %>
+<%= link_to "出品商品の一覧に戻る", seller_items_path %>
+</div>
 
 <table class="attr">
   <tr>
@@ -39,11 +43,11 @@
   </tr>
   <tr>
     <th>コンディション</th>
-    <td><%= @item.new %></td>
+    <td><%= @item.new? ? "新品" : "中古" %></td>
   </tr>
   <tr>
     <th>出品状態</th>
-    <td><%= @item.status %></td>
+    <td><%= I18n.t("enums.item.status.#{@item.status}") %></td>
   </tr>
   <tr>
     <th>商品説明</th>

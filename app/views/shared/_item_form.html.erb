@@ -41,11 +41,12 @@
   </tr>
   <tr>
     <th><%= form.label :new, "コンディション" %></th>
-    <td><%= form.select :new, [["中古",0],["新品",1]] %></td>
+    <td><%= form.select :new, [["新品",true],["中古",false]] %></td>
   </tr>
   <tr>
     <th><%= form.label :status, "出品状態" %></th>
-    <td><%= form.select :status, [["販売停止",0],["販売中",1]] %></td>
+    <% options = Item.statuses.keys.map { |key| [I18n.t("enums.item.status.#{key}"), key]} %>
+    <td><%= form.select :status,options %></td>
   </tr>
   <tr>
     <th><%= form.label :description, "商品説明" %></th>

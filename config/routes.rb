@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :items do
+  resources :items, only: [:index, :show] do
     get :search, on: :collection
     resources :reviews, only: [:index, :new, :create, :destroy, :edit, :update] do
       patch :report, on: :member
@@ -33,6 +33,15 @@ Rails.application.routes.draw do
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :index, :show, :destroy]
 
+  namespace :seller do
+    root "top#index"
+    resources :items do
+      get :search, on: :collection
+    end
+    resources :orders
+    resources :order_items
+    resources :users
+  end
 
   post "order/confirm" => "orders#confirm"
 

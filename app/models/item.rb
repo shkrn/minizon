@@ -11,6 +11,12 @@ class Item < ApplicationRecord
     attribute :new_item_picture
     attribute :remove_item_picture
 
+
+    enum status: {
+        available: 0,
+        unavailable: 1
+    }
+
     before_save do
         if new_item_picture
         self.item_picture = new_item_picture

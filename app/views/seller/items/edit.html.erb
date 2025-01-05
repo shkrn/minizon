@@ -2,9 +2,9 @@
 
 <h1><%= @page_title %></h1>
 
-<div class="toolbar"><%= link_to "出品商品の詳細に戻る", [:item] %></div>
+<div class="toolbar"><%= link_to "出品商品の詳細に戻る", [:seller,@item] %></div>
 
-<%= form_for [@item] do |form| %>
+<%= form_for [:seller,@item] do |form| %>
   <%= render "shared/item_form", form: form %>
   <div><%= form.submit %></div>
 <% end %>

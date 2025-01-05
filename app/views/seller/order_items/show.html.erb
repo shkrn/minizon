@@ -1,0 +1,47 @@
+<% @page_title = "注文商品管理情報の詳細" %>
+
+<h1><%= @page_title %></h1>
+
+<div class="toolbar">
+<%= link_to "編集", edit_seller_order_item_path(@order_item) %>
+<%= link_to "注文管理の一覧に戻る", seller_orders_path %>
+</div>
+
+<table class="attr">
+  <tr>
+    <th width="150">注文ID</th>
+    <td><%= @order_item.order.id %></td>
+  </tr>
+  <tr>
+    <th width="150">商品注文ID</th>
+    <td><%= @order_item.id %></td>
+  </tr>
+  <tr>
+    <th>購入者ID</th>
+    <td><%= link_to @order_item.order.user_id, user_path(@order_item.order.user) %></td>
+  </tr>
+  </tr>
+    <th>注文日時</th>
+    <td><%= @order_item.created_at.strftime("%Y年%m月%d日 %H:%M") %></td>
+  </tr>
+  <tr>
+    <th>注文商品</th>
+    <td><%= link_to @order_item.item.name, seller_item_path(@order_item.item) %></td>
+  </tr>
+  <tr>
+    <th>数量</th>
+    <td><%= @order_item.quantity %></td>
+  </tr>
+  <tr>
+    <th>価格（税込）</th>
+    <td><%= @order_item.price %></td>
+  </tr>
+  <tr>
+    <th>配送状況</th>
+    <td><%= I18n.t("enums.order_item.delivery.#{@order_item.delivery}") %></td>
+  </tr>
+  <tr>
+    <th>更新日時</th>
+    <td><%= @order_item.updated_at.strftime("%Y年%m月%d日 %H:%M") %></td>
+  </tr>
+</table>

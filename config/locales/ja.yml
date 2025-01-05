@@ -29,11 +29,20 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
-  hello: "Hello world"
+ja:
+  hello: "こんにちは"
+
   enums:
     order_item:
       delivery:
-        undelivered: "Undelivered"
-        in_delivery: "In delivery"
-        delivered: "Delivered"
+        undelivered: "未配送"
+        shipped: "配送中"
+        delivered: "配達済み"
+    item:
+      new:
+        new: "新品"
+        used: "中古"
+      status:
+        available: "販売中"
+        unavailable: "販売停止中"
+        

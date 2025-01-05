@@ -14,13 +14,10 @@
       <% else %>
         <%= menu_link_to "ログイン", "#" %>
       <% end %>
-      <%= menu_link_to "お気に入り", favorites_users_path %>
-      <%= menu_link_to "注文履歴", :orders %>
       <%= menu_link_to "マイページ", "#" %>
-      <% if current_user&.seller? %>
-        <%= menu_link_to "出品者TOP", :seller_root %>
-      <% else %>
-        <%= menu_link_to "カート(#{@cart_items&.sum(:quantity) || 0})", :cart %>
-      <% end %>
+      <%= menu_link_to "出品者TOP", :seller_root %>
+      <%= menu_link_to "出品商品管理", :seller_items %>
+      <%= menu_link_to "注文管理", :seller_orders %>
+      <%= menu_link_to "問い合わせ管理", :rooms %>
     </ul>
 </nav>

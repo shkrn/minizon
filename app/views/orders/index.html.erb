@@ -19,11 +19,11 @@
       <tbody>
         <% order.order_items.each do |order_item| %>
           <tr>
-            <td><%= order_item.item.name %></td> <%# itemモデルとの関連付けを想定 %>
+            <td><%= link_to order_item.item.name, item_path(order_item.item) %></td> <%# itemモデルとの関連付けを想定 %>
             <td><%= order_item.quantity %></td>
             <td><%= order_item.price %></td>
             <td><%= order_item.quantity * order_item.price %></td>
-            <td><%= order_item.delivery %></td>
+            <td><%= I18n.t("enums.order_item.delivery.#{order_item.delivery}") %></td>
           </tr>
         <% end %>
       </tbody>

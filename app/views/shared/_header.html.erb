@@ -2,6 +2,8 @@
 
 <%= if controller.kind_of?(Seller::Base)
     render "shared/seller_menubar" 
+    elsif controller.kind_of?(Admin::Base)
+    render "shared/admin_menubar"
     else 
     render "shared/menubar"
     end %>  

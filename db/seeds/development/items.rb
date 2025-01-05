@@ -9,7 +9,7 @@ items.each_with_index do |i, index|
         stock: 100,
         description: "this is description",
         new: true,
-        status: 1,
+        status: 0,
         price: 1000
     )
 end

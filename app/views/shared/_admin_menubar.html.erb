@@ -1,0 +1,25 @@
+<nav class="menubar">
+    <ul>
+      <%= menu_link_to "TOP", :root %>
+      <%= form_with(url: '#', method: :get, local: true) do %>
+        <%= text_field_tag :q, '', placeholder: 'Search...' %>
+        <%= submit_tag 'Search' %>
+      <% end %>
+      <% if current_user %>
+        <ul class="account-menu">
+        <%= menu_link_to current_user.full_name + "さん", :account %>
+        <%= menu_link_to "ログアウト", :admin_session,
+            method: :delete, data: { confirm: "ログアウトしますか？" } %>
+        </ul>
+      <% else %>
+        <%= menu_link_to "ログイン", "#" %>
+      <% end %>
+      <%= menu_link_to "マイページ(管理者)", "#" %>
+      <%= menu_link_to "管理者TOP", :admin_root %>
+      <%= menu_link_to "アカウント管理", :admin_items %>
+      <%= menu_link_to "注文管理", :admin_orders %>
+      <%= menu_link_to "問い合わせ管理", :rooms %>
+      <%= menu_link_to "商品管理", :rooms %>
+      <%= menu_link_to "カテゴリ管理", :rooms %>
+    </ul>
+</nav>

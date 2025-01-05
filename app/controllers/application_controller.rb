@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
     private def current_user
-        User.find_by(id: session[:user_id]) if session[:user_id]
+        if session[:user_id]
+            User.find_by(id: session[:user_id]) 
+        elsif session[:admin_id]
+            Admin.find_by(id: session[:admin_id])
+        end
     end
     helper_method :current_user
 
@@ -28,4 +32,9 @@ class ApplicationController < ActionController::Base
 
     helper_method :login?
     helper_method :current_cart
+
+    def admin?
+        current_user.is_a?(Admin)
+    end
+    helper_method :admin?
 end

@@ -43,6 +43,23 @@ Rails.application.routes.draw do
     resources :users
   end
 
+  namespace :admin do
+    root "top#index"
+    get "login" => "top#login"
+    post "login" => "sessions#create"
+    delete 'logout' => 'sessions#destroy'
+    resource :session, only: [:create, :destroy]
+    resources :orders
+    resources :items do
+      get :search, on: :collection
+    end
+    resources :users do
+      resources :reviews, only: [:index, :destroy, :edit, :update]
+    end
+    resources :items
+    resources :category
+  end
+
   post "order/confirm" => "orders#confirm"
 
   

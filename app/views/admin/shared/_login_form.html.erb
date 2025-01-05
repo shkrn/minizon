@@ -1,0 +1,18 @@
+<!-- 管理者ログイン -->
+<h2>管理者ユーザーログイン</h2>
+<% if flash.alert %><p class="alert"><%= flash.alert %></p><% end %>
+<%= form_tag admin_session_path, id: "login-form" do %>
+   <div>
+     <label>メールアドレス：</label>
+     <input type="text" name="email">
+   </div>
+   <div>
+     <label>パスワード：</label>
+     <input type="password" name="password">
+   </div>
+   <div>
+     <input type="submit" value="ログイン">
+   </div>
+   <div>
+   </div>
+<% end %>

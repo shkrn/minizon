@@ -6,7 +6,7 @@
     <p>注文日時: <%= order.created_at.strftime("%Y年%m月%d日 %H:%M") %></p>
 
     <h3>注文商品</h3>
-    <table>
+    <table class="attr">
       <thead>
         <tr>
           <th>商品名</th>
@@ -14,6 +14,7 @@
           <th>単価</th>
           <th>小計</th>
           <th>配送状況</th>
+          <th colspan="3">操作</th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +25,15 @@
             <td><%= order_item.price %></td>
             <td><%= order_item.quantity * order_item.price %></td>
             <td><%= I18n.t("enums.order_item.delivery.#{order_item.delivery}") %></td>
+              <% if order_item.undelivered? || order_item.shipped? %>
+                <td><%= link_to "キャンセル", order_item_path(order_item), 
+                                method: :delete, 
+                                data: { confirm: "本当にキャンセルしますか？" } %></td>
+              <% elsif order_item.returnable? %>
+                <td><%= link_to "返品", return_order_item_path(order_item),method: :patch,data: { confirm: "受取しましたか？" } %></td>
+            <% end %>
+            <td><%= link_to "レビュー", new_item_review_path(item_id: order_item.id) %></td>
+            <td><%= link_to "詳細", order_item_path(order_item) %></td>
           </tr>
         <% end %>
       </tbody>

@@ -28,7 +28,9 @@ Rails.application.routes.draw do
   resource :cart
   resources :cart_items
   resources :orders
-  resources :order_items
+  resources :order_items do
+    patch :return, on: :member
+  end
 
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :index, :show, :destroy]

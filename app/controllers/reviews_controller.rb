@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
     before_action :login_required, only: [:new, :create]
     def index
-        @reviews = Review.order(created_at: :desc)
+        @reviews = Review.order(created_at: :desc).page(params[:page]).per(30)
         @myreviews = current_user.reviews.order(created_at: :desc)
     end
     def new
@@ -63,5 +63,9 @@ class ReviewsController < ApplicationController
         else
             redirect_to item_path(@review.item_id), notice: "レビューの通報に失敗しました。"
         end
+    end
+    def search
+        @reviews = Review.search(params[:q]).page(params[:page]).per(30)
+        render "index"
     end
 end

@@ -1,0 +1,21 @@
+<% @page_title = "カテゴリ情報の詳細" %>
+
+<h1><%= @page_title %></h1>
+
+<div class="toolbar">
+  <%= link_to "編集", [:edit, :admin,@category] %> |
+  <%= link_to "削除", [:admin,@category], method: :delete,
+                    data: { confirm: "本当に削除しますか?" } %> |
+  <%= link_to "カテゴリ一覧に戻る", admin_categories_path %>
+</div>
+
+<table class="attr">
+    <tr>
+      <th width="150">カテゴリID</th>
+      <td><%= @category.id %></td>
+    </tr>
+    <tr>
+      <th>カテゴリ名</th>
+      <td><%= @category.category_name %></td>
+    </tr>
+</table>

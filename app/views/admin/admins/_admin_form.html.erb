@@ -1,0 +1,37 @@
+<%##= render "shared/errors", obj: @user %>
+<table class="attr">
+  <tr>
+    <th width="150"><%= form.label :number, "ユーザー番号" %></th>
+    <td><%= @admin.id %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :family_name, "姓" %></th>
+    <td><%= form.text_field :family_name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :given_name, "名" %></th>
+    <td><%= form.text_field :given_name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :full_name, "氏名" %></th>
+    <td><%= form.text_field :full_name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :email, "メールアドレス" %></th>
+    <td><%= form.text_field :email %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :address, "住所" %></th>
+    <td><%= form.text_field :address %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :phonenumber, "電話番号" %></th>
+    <td><%= form.text_field :phonenumber %></td>
+  </tr>
+    <% if @admin.new_record? %>
+      <tr>
+        <th><%= form.label :password, "パスワード" %></th>
+        <td><%= form.text_field :password %></td>
+      </tr>
+    <% end %>
+</table>

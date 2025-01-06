@@ -1,0 +1,12 @@
+<% @page_title = "カテゴリ情報の編集" %>
+
+<h1><%= @page_title %></h1>
+
+<div class="toolbar">
+  <%= link_to "カテゴリ一覧に戻る", admin_categories_path %>
+</div>
+
+<%= form_for @category, as: "category", url: [:admin,:category] do |form| %>
+  <%= render "admin/categories/c_form", form: form %>
+  <div><%= form.submit %></div>
+<% end %>

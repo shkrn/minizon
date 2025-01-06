@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   root "top#index"
 
-  resources :users do
+  resources :users,only: [:index,:show,:favorites] do
     resources :reviews, only: [:index, :destroy, :edit, :update]
     resources :favorite_items, only: [:index]
     resources :favorite_users, only: [:index, :create, :destroy]
@@ -50,14 +50,27 @@ Rails.application.routes.draw do
     delete 'logout' => 'sessions#destroy'
     resource :session, only: [:create, :destroy]
     resources :orders
+    resources :order_items
     resources :items do
       get :search, on: :collection
     end
     resources :users do
-      resources :reviews, only: [:index, :destroy, :edit, :update]
+      resources :reviews, only: [:index, :destroy]
+      get :search, on: :collection
+      resources :items do
+        get :search, on: :collection
+      end
     end
-    resources :items
-    resources :category
+    resources :items do
+      get :search, on: :collection
+    end
+    resources :categories
+    resources :reviews  do
+      get :search, on: :collection
+    end
+    resources :admins do
+      get :search, on: :collection
+    end
   end
 
   post "order/confirm" => "orders#confirm"

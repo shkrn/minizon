@@ -1,0 +1,13 @@
+<% @page_title = "会員の詳細" %>
+
+<h1><%= @page_title %></h1>
+
+<div class="toolbar">
+<%= link_to "編集", [:edit, :admin,@admin] %>
+<%= link_to "削除", [:admin,@admin], method: :delete, data: { confirm: "本当に削除しますか?" } %>
+<%= link_to "一覧に戻る", :admin_admins %>
+<%#= link_to"投票した記事一覧", voted_entries_path(admin_id: @admin) %>
+<%#= link_to "投票した記事一覧","#{@admin.id}/entries/voted"  %>
+</div>
+
+<%= render "body" %>

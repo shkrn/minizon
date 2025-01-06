@@ -1,0 +1,61 @@
+<% if params[:user_id].present? %>
+  <% @page_title = @user.full_name + "さんのレビュー" %>
+<% else %>
+<% @page_title = "レビュー一覧" %>
+<% end %>
+<h1><%= @page_title %></h1>
+
+<%= form_tag :search_admin_reviews, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q] %>
+  <%= radio_button_tag 'report', true, params[:report] == 'true' %>
+  <%= label_tag "通報あり" %>
+  <%= radio_button_tag 'report', false, params[:report] == 'false' %>
+  <%= label_tag "通報なし" %>
+  <%= radio_button_tag 'report', "null", params[:report].nil? || params[:report] == 'null' %>
+  <%= label_tag "指定なし" %>
+  <%= submit_tag "検索" %>
+<% end %>
+
+
+<% if @reviews.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <% if !params[:user_id].present? %>
+          <th>ユーザーID</th>
+        <% end %>
+        <th>商品名</th>
+        <th>評価</th>
+        <th>コメント</th>
+        <th>投稿日時</th>
+        <th>通報</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reviews.each do |review| %>
+        <tr>
+          <% if !params[:user_id].present? %>
+            <td><%= link_to review.user_id, admin_user_path(review.user) %></td>
+          <% end %>
+          <td><%= link_to review.item.name, admin_item_path(review.item) %></td>
+          <td><%= review.rating %></td>
+          <td><%= review.content %></td>
+          <td><%= review.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+          <td>
+            <% if review.report? %>
+              <p>有</p>
+            <% else %>
+              <p>無</p>
+            <% end %>
+          <td>
+              <%= link_to "削除", admin_user_review_path(current_user,review), method: :delete, data: { confirm: "削除しますか？" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @reviews %>
+<% else %>
+  <p>レビューはまだありません。</p>
+<% end %>

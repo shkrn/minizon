@@ -16,10 +16,11 @@
       <% end %>
       <%= menu_link_to "マイページ(管理者)", "#" %>
       <%= menu_link_to "管理者TOP", :admin_root %>
-      <%= menu_link_to "アカウント管理", :admin_items %>
+      <%= menu_link_to "アカウント管理", :admin_users %>
       <%= menu_link_to "注文管理", :admin_orders %>
       <%= menu_link_to "問い合わせ管理", :rooms %>
-      <%= menu_link_to "商品管理", :rooms %>
-      <%= menu_link_to "カテゴリ管理", :rooms %>
+      <%= menu_link_to "商品管理", :admin_items %>
+      <%= menu_link_to "レビュー管理", :admin_reviews %>
+      <%= menu_link_to "カテゴリ管理", :admin_categories %>
     </ul>
 </nav>

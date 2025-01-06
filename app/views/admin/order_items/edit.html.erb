@@ -1,0 +1,49 @@
+<% @page_title = "注文商品管理情報の編集" %>
+
+<h1><%= @page_title %></h1>
+
+<div class="toolbar">
+<%= link_to "注文管理の一覧に戻る", admin_order_path %>
+</div>
+
+<%= form_for [:admin,@order,@order_item] do |form| %>
+  <table class="attr">
+    <tr>
+      <th><%= form.label :id, "注文ID" %></th>
+      <td><%= @order_item.order.id %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :id, "商品注文ID" %></th>
+      <td><%= @order_item.id %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :user_id, "購入者ID" %></th>
+      <td><%= @order_item.order.user_id %></td>
+    </tr>
+    </tr>
+      <th>注文日時</th>
+      <td><%= @order_item.created_at.strftime("%Y年%m月%d日 %H:%M") %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :item, "注文商品" %></th>
+      <td><%= link_to @order_item.item.name, admin_item_path(@order_item.item) %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :quantity, "数量" %></th>
+      <td><%= @order_item.quantity  %></td>
+    <tr>
+      <th><%= form.label :price, "価格（税込）" %></th>
+      <td><%= @order_item.price %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :delivery, "配送状況" %></th>
+      <% options = OrderItem.deliveries.keys.map { |key| [I18n.t("enums.order_item.delivery.#{key}"), key]} %>
+      <td><%= form.select :delivery,options %></td>
+    </tr>
+    <tr>
+      <th>更新日時</th>
+      <td><%= @order_item.updated_at.strftime("%Y年%m月%d日 %H:%M") %></td>
+    </tr>
+  </table>
+  <div><%= form.submit %></div>
+<% end %>

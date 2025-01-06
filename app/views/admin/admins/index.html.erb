@@ -1,0 +1,49 @@
+<% @page_title = "会員管理" %>
+<h1><%= @page_title %></h1>
+
+<%= form_tag :search_admin_admins, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q] %>
+  <%= submit_tag "検索" %>
+<% end %>
+
+<div class="toolbar"><%= link_to "会員の新規登録",:new_admin_admin %></div>
+
+<% if @admins.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>氏名</th>
+        <th>姓</th>
+        <th>名</th>
+        <th>メールアドレス</th>
+        <th>住所</th>
+        <th>電話番号</th>
+        <th>登録日</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @admins.each do |user| %>
+        <tr>
+          <td style="text-align: left"><%= user.id %></td>
+          <td><%= link_to user.full_name, admin_admin_path(user) %></td>
+          <td><%= user.family_name %></td>
+          <td><%= user.given_name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.address %></td>
+          <td><%= user.phonenumber %></td>
+          <td><%= user.created_at.strftime("%Y/%m/%d %H:%M:%S") %></td>
+          <td>
+          <%= link_to "編集", edit_admin_admin_path(user) %> |
+          <%= link_to "削除", admin_admin_path(user), method: :delete,
+                  data: { confirm: "本当に削除しますか?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @admins %>
+<% else %>
+  <p>会員情報がありません。</p>
+<% end %>

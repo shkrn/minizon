@@ -1,0 +1,54 @@
+<table class="attr">
+  <tr>
+    <th>出品商品画像</th>
+    <td>
+      <% if @item.item_picture.attached? %>
+        <%= image_tag @item.item_picture.variant(resize:"128x128") %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th width="150">商品ID</th>
+    <td><%= @item.id %></td>
+  </tr>
+  <tr>
+    <th>商品名</th>
+    <td><%= @item.name %></td>
+  </tr>
+  <tr>
+    <th>コード</th>
+    <td><%= @item.code %></td>
+  </tr>
+  <tr>
+    <th>カテゴリ</th>
+    <td><%= @item.category.category_name %></td>
+  </tr>
+  <tr>
+    <th>在庫数</th>
+    <td><%= @item.stock %></td>
+  </tr>
+  <tr>
+    <th>価格（税込）</th>
+    <td><%= @item.price %></td>
+  </tr>
+  <tr>
+    <th>コンディション</th>
+    <td><%= @item.new? ? "新品" : "中古" %></td>
+  </tr>
+  <tr>
+    <th>出品状態</th>
+    <td><%= I18n.t("enums.item.status.#{@item.status}") %></td>
+  </tr>
+  <tr>
+    <th>商品説明</th>
+    <td><%= @item.description %></td>
+  </tr>
+  <tr>
+    <th>登録日時</th>
+    <td><%= @item.created_at %></td>
+  </tr>
+  <tr>
+    <th>更新日時</th>
+    <td><%= @item.updated_at %></td>
+  </tr>
+</table>

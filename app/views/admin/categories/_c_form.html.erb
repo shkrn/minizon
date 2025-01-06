@@ -1,0 +1,11 @@
+<%##= render "shared/errors", obj: @user %>
+<table class="attr">
+  <tr>
+    <th width="150"><%= form.label :number, "カテゴリ番号" %></th>
+    <td><%= @category.id %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :category_name, "カテゴリ名" %></th>
+    <td><%= form.text_field :category_name %></td>
+  </tr>
+</table>

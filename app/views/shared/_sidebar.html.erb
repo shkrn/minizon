@@ -1,16 +1,30 @@
 <%= render "shared/login_form" unless current_user%>
 
 <h2>カテゴリ</h2>
-<%
-  categories = Category.order(posted_at: :desc)
-%>
-<ul>
-  <% if categories.present? %>
-    <% categories.each do |c| %>
-      <li><%= link_to c.category_name, "#" %></li>
+  <%
+    categories = Category.order(posted_at: :desc)
+  %>
+  <ul>
+    <% if categories.present? %>
+      <% categories.each do |c| %>
+        <% if params[:category_id].to_i == c.id %>
+          <li><strong><%= link_to c.category_name, items_path(category_id:c.id) %></strong></li>
+        <% else %>
+        <li><%= link_to c.category_name, items_path(category_id:c.id) %></li>
+        <% end %>
+      <% end %>
+    <% else %>
+      <li>カテゴリがありません</li>
     <% end %>
-  <% else %>
-    <li>カテゴリがありません</li>
-  <% end %>
-</ul>
+  </ul>
+<h2>
 
+<h2>商品検索</h2>
+<%= form_with url: items_path, method: :GET, local: true do |form| %>
+  <%= form.number_field :min_price, placeholder: "最低価格", value: params[:min_price] %>〜
+  <%= form.number_field :max_price, placeholder: "最高価格", value: params[:max_price] %>
+  <%= form.hidden_field :category_id, value: params[:category_id] %>
+  <%= form.submit "検索" %>
+<% end %>
+
+<%= link_to "リセット", items_path, method: :get, class: "btn" %>

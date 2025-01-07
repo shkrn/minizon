@@ -32,7 +32,7 @@
               <% elsif order_item.returnable? %>
                 <td><%= link_to "返品", return_order_item_path(order_item),method: :patch,data: { confirm: "受取しましたか？" } %></td>
             <% end %>
-            <td><%= link_to "レビュー", new_item_review_path(item_id: order_item.id) %></td>
+            <td><%= link_to "レビュー", new_item_review_path(item_id: order_item.item_id) %></td>
             <td><%= link_to "詳細", order_item_path(order_item) %></td>
           </tr>
         <% end %>

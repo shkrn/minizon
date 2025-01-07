@@ -1,0 +1,96 @@
+body {
+  font-family: sans-serif; /* 例 */
+  margin: 20px;
+}
+
+div#itemlist {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}
+
+
+.itemlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 280px)); /* レスポンシブなグリッド */
+  grid-auto-rows: minmax(500px, auto);
+  grid-gap: 18px;
+}
+
+.itemlist-card {
+  border: 1px solid #ddd; /* カードの枠線 */
+  padding: 10px;
+  border-radius: 5px; /* 角丸 */
+  overflow: hidden; /* 画像がはみ出さないように */
+}
+
+.itemlist-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.itemlist-info {
+  text-align: left; /* 商品情報を中央揃え */
+}
+
+.itemlist-name {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.itemlist-name a:link {
+  text-decoration: none;
+  color: black !important;
+}
+
+.itemlist-name a:visited {
+  color: black;
+}
+
+.itemlist-name a:hover {
+  color: red;
+}
+
+
+.itemlist-price {
+  font-weight: normal;
+  font-size:21px;
+  margin-bottom: 10px;
+  color: #b12704;
+}
+
+.itemlist-buy-button {
+  background-color: rgb(248, 218, 78); /* 近似の色 */
+  border: none;
+  cursor: pointer;
+  border-radius: 100px;
+  padding: 0 10px 0 11px;
+  font-size: 13px;
+  transition: background-color 0.3s ease; /* ホバーエフェクト */
+  text-align: center;
+  line-height: 29px;
+}
+.itemlist-buy-button:hover {
+  background-color: rgb(238,204,62);
+}
+
+.add-to-cart {
+  background-color: #f0c14b; /* カートボタンの色 */
+  border: 1px solid #a88734;
+  border-radius: 3px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+.itemlist-grid {
+  grid-template-columns: 1fr; /* スマホでは1列に */
+}
+}

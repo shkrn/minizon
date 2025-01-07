@@ -4,7 +4,7 @@
 
 <% if @user.seller? %>
 <ul class="toolbar">
-  <%= menu_link_to "出品商品一覧",  "#" %>
+  <%= menu_link_to "出品商品一覧",  user_items_path(@user) %>
 
   <% if login? %>
     <% if current_user.favorite_users.exists?(favorite_user_id: @user.id) %>

@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ 
  */
 
 /* ページ全体 */
@@ -27,6 +28,9 @@ body {
   a:visited { color: #00c; }
   a:hover { color: #f00; }
   a img { border: none; }
+  a {
+    text-decoration: none;
+  }
   
   /* ブロック要素 */
   p, h1, h2, h3, table, ul {
@@ -68,7 +72,7 @@ div#container {
 /* サイドバーのスタイル */
 aside#sidebar {
   flex: 0 0 230px; /* 幅を固定 */
-  background-color: #bebebe;
+  background-color: #ffffff;
   padding: 20px;
   font-size: 86%;
   box-sizing: border-box;

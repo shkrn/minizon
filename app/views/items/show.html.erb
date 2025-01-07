@@ -1,7 +1,7 @@
 <% @page_title = @item.name %>
 
 <div class="category">
-  <%= link_to @item.category.category_name, "#", class: "category" %>
+  <%= link_to @item.category.category_name, items_path(category_id:@item.category_id), class: "category" %>
 </div>
 <div class="product-container">
   <div class="product-image">
@@ -16,12 +16,12 @@
     <hr>
     <p><%= @item.description %></p>
     <hr>
-    <p>この商品に関する問題を報告する</p>
+    <p></p>
   </div>
   <div class="product-price-box">
     <div class="item">
     <div class="product-condition"><%= @item.new? ? "新品" : "中古" %></div>
-    <div class="product-price"><%= currency%><%= @item.price %> 税込</div>
+    <div class="product-price"><%= currency%><%= @item.price %><span class="product-price-smalltext">税込</span></div>
     <div class="product-status"><%= I18n.t("enums.item.status.#{@item.status}") %></div>
         <% if @item.available? %>
           <%= form_with url: cart_items_path, local: true do |form| %>

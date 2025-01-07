@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     collection do
       get 'favorites' # これを追加
     end
+    resources :items do
+      get :search, on: :collection
+    end
   end
 
   resources :items, only: [:index, :show] do
@@ -31,6 +34,8 @@ Rails.application.routes.draw do
   resources :order_items do
     patch :return, on: :member
   end
+
+  
 
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :index, :show, :destroy]

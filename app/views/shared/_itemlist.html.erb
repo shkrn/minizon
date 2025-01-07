@@ -1,0 +1,40 @@
+
+
+
+
+<!--<%= form_tag :search_items, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q], placeholder: "商品検索..." %>
+  <%= submit_tag "検索" %>
+<% end %>-->
+
+
+<% if @items.present? %>
+  <div class="itemlist-grid">
+      <% @items.each do |item| %>
+        <div class="itemlist-card">
+          <%= link_to item do %>
+            <% if item.item_picture.attached? %>
+              <%= image_tag item.item_picture.variant(resize: "300x300") %>
+            <% end %>
+            <div class="itemlist-info">
+                <p class="itemlist-name"><%= link_to item.name, item %></p>
+                <p class="itemlist-price"><%= number_to_currency(item.price, :format => "%u%n", unit: "¥") %></p>
+                <p><%= item.stock %></P>
+                <% if item.available? %>
+                  <%= form_with url: cart_items_path, local: true do |form| %>
+                    <%= form.hidden_field :item_id, value: item.id %>
+                    <%= form.hidden_field :quantity, value:1 %>
+                    <%= form.submit "カートに入れる", class: "itemlist-buy-button" %>
+                  <% end %>
+                <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+  </div>
+    </tbody>
+  </table>
+  <%= paginate @items %>
+<% else %>
+  <p>該当する商品がありません。</p>
+<% end %>

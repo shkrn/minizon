@@ -64,7 +64,7 @@
                     <%= form.hidden_field :user_id, value: current_user.id %>
                     <%= form.hidden_field :quantity, value: current_cart.cart_items.sum(:quantity)  %>
                     <%= form.hidden_field :total_price, value: current_cart.price %>
-                    <%= form.submit "注文を確定する", class: "buy-button" %>
+                    <%= form.submit "注文を確定する", class: "cartconfirm-buy-button" %>
                 <% end %>
             </div>
         </div>

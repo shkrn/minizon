@@ -2,6 +2,7 @@
 ############Seller############
 ##############################
 class Seller::ItemsController < Seller::Base
+
     def index
         @items = Item.where(user_id: current_user.id).order(id: :asc)
     end

@@ -1,0 +1,45 @@
+<% @page_title = "商品一覧" %>
+<h1><%= @page_title %></h1>
+
+
+
+<%= form_tag :search_items, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q], placeholder: "商品検索..." %>
+  <%= submit_tag "検索" %>
+<% end %>
+
+
+<% if @items.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>商品名</th>
+        <th>コード</th>
+        <th>カテゴリ</th>
+        <th>在庫数</th>
+        <th>価格（税込）</th>
+        <th>コンディション</th>
+        <th>出品状態</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+          <tr>
+            <td style="text-align: right"><%= item.id %></td>
+            <td><%= link_to item.name, item %></td>
+            <td><%= item.code %></td>
+            <td><%= link_to item.category.category_name %></td>
+            <td><%= item.stock %></td>
+            <td><%= number_to_currency(item.price, unit: "¥") %></td>
+            <td><%= item.new? ? "新品" : "中古" %></td>
+            <td><%= I18n.t("enums.item.status.#{item.status}") %></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @items %>
+<% else %>
+  <p>商品がありません。</p>
+<% end %>

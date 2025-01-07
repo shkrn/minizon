@@ -26,7 +26,11 @@ class Item < ApplicationRecord
         def search(query)
             rel = order("id")
             if query.present?
-                rel = rel.where("name LIKE ?","%#{query}%")
+                rel = rel.where(
+                    "name LIKE ? OR description LIKE ?",
+                    "%#{query}%",
+                    "%#{query}%"
+                    )
             end
             rel
         end

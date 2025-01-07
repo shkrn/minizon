@@ -1,0 +1,11 @@
+<% if params[:type] == "seller" %>
+  <% @page_title = "購入者アカウントの新規登録" %>
+<% elsif params[:type] == "buyer" %>
+  <% @page_title = "出品者アカウントの新規登録" %>
+<% end %>
+
+<%= form_for @user, as: "account", url: :account do |form| %>
+  <%= render "shared/user_form", form: form %>
+  <% form.hidden_field :type, value: params[:type] %>
+  <div><%= form.submit %></div>
+<% end %>

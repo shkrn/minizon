@@ -18,6 +18,7 @@
 
 
 class SessionsController < ApplicationController
+  protect_from_forgery with: :null_session
     def new
       # ログインフォームを表示
     end
@@ -35,7 +36,7 @@ class SessionsController < ApplicationController
         session[:admin_id] = @admin.id
         redirect_to admin_root_path, notice: '管理者としてログインしました！'
       else
-        flash.now[:alert] = 'メールアドレスまたはパスワードが間違っています。'
+        flash[:alert] = 'メールアドレスまたはパスワードが間違っています。'
         redirect_to root_path
       end
     end

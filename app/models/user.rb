@@ -30,6 +30,12 @@ class User < ApplicationRecord
     Cart.create(user: self)
   end
 
+  def can_destroy?
+    self.items.joins(:order_items)
+    .where(order_items: { delivery: ['undelivered','returning'] })
+    .exists?
+  end
+
   class << self
     def search(query)
         rel = order("id")

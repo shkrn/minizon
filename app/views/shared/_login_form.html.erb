@@ -11,8 +11,9 @@
    </div>
    <div>
      <input type="submit" value="ログイン">
-     <%= link_to "会員登録はこちら","#" %>
    </div>
    <div>
+      <p><%= link_to "購入者登録はこちら", new_account_path(type: :buyer) %></p>
+      <p><%= link_to "出品者登録はこちら", new_account_path(type: :seller) %></p>
    </div>
 <% end %>

@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     resources :favorite_items, only: [:create, :destroy]
   end
   resource :session, only: [:create, :destroy]
-  resource :account, only: [:show, :edit, :update, :new, :create]
+  resource :account, only: [:show, :edit, :update, :new, :create, :destroy]
   resource :password, only: [:show, :edit, :update]
   resource :cart
   resources :cart_items

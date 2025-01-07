@@ -1,4 +1,4 @@
-<%##= render "shared/errors", obj: @user %>
+<%#= render "shared/error", target: @user %>
 <table class="attr">
   <tr>
     <th width="150"><%= form.label :number, "ユーザー番号" %></th>
@@ -32,11 +32,22 @@
     <th><%= form.label :phonenumber, "電話番号" %></th>
     <td><%= form.text_field :phonenumber %></td>
   </tr>
-  <tr>
-    <th><%= form.label :status, "ユーザー種別" %></th>
-    <td><%= form.select :status, options_for_select([["出品者", "seller"], ["購入者", "buyer"]], @user.status) %></td>
-    
+  <% if params[:type] == "seller" %>
+    <tr>
+      <th><%= form.label :status, "ユーザー種別" %></th>
+      <td><%= form.hidden_field :status, value: "seller" %>出品者</td>
   </tr>
+  <% elsif params[:type] == "buyer" %>
+    <tr>
+      <th><%= form.label :status, "ユーザー種別" %></th>
+      <td><%= form.hidden_field :status, value: "buyer" %>購入者</td>
+    </tr>
+  <% else %>
+    <tr>
+      <th><%= form.label :status, "ユーザー種別" %></th>
+      <td><%= form.select :status, User.statuses.keys.map { |status| [I18n.t("enums.user.status.#{status}") , status] } %></td>
+    </tr>
+  <% end %>
     <% if @user.new_record? %>
       <tr>
         <th><%= form.label :password, "パスワード" %></th>

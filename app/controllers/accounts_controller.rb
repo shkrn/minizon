@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :login_required
+  before_action :login_required, except: [:new,:create]
   def show
     @user = current_user
   end
@@ -20,11 +20,6 @@ class AccountsController < ApplicationController
 
   def new
     @user = User.new
-    if params[:type] == 'seller'
-      render 'new_seller'
-    else
-      render 'new_buyer'
-    end
   end
   def create
     @user = User.new(params[:account])
@@ -33,6 +28,15 @@ class AccountsController < ApplicationController
         redirect_to :root, notice: "会員登録が完了しました。"
     else
         render "new"
+    end
+  end
+  def destroy
+    @user = current_user
+    if @user.can_destroy?
+      redirect_to :root, notice: "配送中の商品があるため削除できません。"
+    else
+      @user.destroy
+      redirect_to :account, notice: "アカウントを削除できませんでした。"
     end
   end
 end

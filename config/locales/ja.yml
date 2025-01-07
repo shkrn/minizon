@@ -47,4 +47,8 @@ ja:
       status:
         available: "販売中"
         unavailable: "販売停止中"
+    user:
+      status:
+        seller: "出品者"
+        buyer: "購入者"
         

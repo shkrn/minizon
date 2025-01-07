@@ -43,11 +43,10 @@ class Admin::UsersController < Admin::Base
 
     def destroy
         @user = User.find(params[:id])
-        if @user.items.joins(:order_items)
-            .where(order_items: { delivery: 'undelivered' })
-            .exists?
+        if @user.can_destroy?
             redirect_to admin_users_path, notice: "配送中の商品があるため削除できません"
         else
+            @user.destroy
             redirect_to admin_users_path, notice: "ユーザーを削除しました"
         end
     end

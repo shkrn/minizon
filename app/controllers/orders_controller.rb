@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   layout false, only: [:confirm]
-  before_action :login_required
+  before_action :login_required ,except: [:confirm]
   def index
     @orders = current_user.orders.order(created_at: :desc)
   end
@@ -48,6 +48,8 @@ class OrdersController < ApplicationController
     @cart_items = CartItem.where(cart_id: current_cart.id)
     if @cart_items.count == 0
       redirect_to :cart, notice: "カートに商品がありません。"
+    elsif !login?
+      redirect_to new_account_path(type: :buyer,from: :order_confirm) , notice: "購入には会員登録もしくはログインが必要です。"
     else
       @order = Order.new(params[:order])
       @order.user_id = current_user.id

@@ -1,3 +1,5 @@
 <%= link_to "このサイトについて", "#" %> |
 <%= service_name %> |
 <%= link_to "お問い合わせ", "#" %>
+      <p>現在のセッション:<%= session[:session_id] %></p>
+      <p>現在のカート:<%= current_cart&.id %></p>

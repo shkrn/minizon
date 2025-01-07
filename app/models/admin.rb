@@ -2,6 +2,13 @@ class Admin < ApplicationRecord
     has_secure_password
     validates :email, presence: true, uniqueness: true
 
+    def seller?
+      false
+    end
+    def buyer?
+      false
+    end
+
     class << self
         def search(query)
             rel = order("id")

@@ -1,7 +1,9 @@
 class User < ApplicationRecord
     has_secure_password
-    has_many :items, dependent: :destroy
     enum status: { buyer: 0, seller: 1 }
+    
+    has_many :items, dependent: :destroy
+    
     has_one :cart, dependent: :destroy
     has_many :orders, dependent: :destroy
     
@@ -27,13 +29,18 @@ class User < ApplicationRecord
     end
     
   private def create_cart
+    puts "############カートを作成しました。###############"
     Cart.create(user: self)
   end
 
   def can_destroy?
-    self.items.joins(:order_items)
+    !self.items.joins(:order_items)
     .where(order_items: { delivery: ['undelivered','returning'] })
     .exists?
+  end
+
+  def admin?
+    false
   end
 
   class << self

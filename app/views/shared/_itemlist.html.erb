@@ -20,7 +20,7 @@
                 <p class="itemlist-name"><%= link_to item.name, item %></p>
                 <p class="itemlist-price"><%= number_to_currency(item.price, :format => "%u%n", unit: "¥") %></p>
                 <p><%= item.stock %></P>
-                <% if item.available? %>
+                <% if item.available?%>
                   <%= form_with url: cart_items_path, local: true do |form| %>
                     <%= form.hidden_field :item_id, value: item.id %>
                     <%= form.hidden_field :quantity, value:1 %>

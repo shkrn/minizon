@@ -17,9 +17,11 @@ class CartItemsController < ApplicationController
     end
 
     def create
+        puts "-------------------------------"
+        puts current_user
         #カートにアイテムを追加する
         ci = current_cart.cart_items.find_by(item_id: params[:item_id])
-        
+        #数量更新
         if ci 
             ci.quantity += params[:quantity].to_i
             noticemsg = 'アイテムの数量を更新しました。'
@@ -28,16 +30,21 @@ class CartItemsController < ApplicationController
             else
                 noticemsg = 'アイテムの数量更新に失敗しました。'
             end
+        #新規追加
         else
-            ci = current_cart.cart_items.create(
-                item_id: params[:item_id], 
-                quantity: params[:quantity],
-                price: Item.find(params[:item_id]).price
-                )
-            if ci.persisted?
-                noticemsg = 'アイテムをカートに追加しました。'
-            else
-                noticemsg = 'アイテムの追加に失敗しました。'
+            if current_user.nil? || current_user.buyer?
+                ci = current_cart.cart_items.create(
+                    item_id: params[:item_id], 
+                    quantity: params[:quantity],
+                    price: Item.find(params[:item_id]).price
+                    )
+                if ci.persisted?
+                    noticemsg = 'アイテムをカートに追加しました。'
+                else
+                    noticemsg = 'アイテムの追加に失敗しました。'
+                end
+            else 
+                noticemsg = '購入者ユーザー以外はカートにアイテムを追加できません。'
             end
         end
         

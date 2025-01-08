@@ -20,23 +20,42 @@ class AccountsController < ApplicationController
 
   def new
     @user = User.new
+    if params[:from]=="order_confirm"
+      #デバッグ用
+      puts "order_confirmからの遷移"
+    end
   end
   def create
     @user = User.new(params[:account])
+    if current_cart.present?
+      # @user.build_cart  # 新しいカートを作成
+      # # 既存のカートアイテムを新しいカートに移動
+      # current_cart.cart_items.each do |item|
+      #   @user.cart.cart_items.build(
+      #     item: item.item,
+      #     quantity: item.quantity,
+      #     price: item.price
+      #   )
+      # end
+      @user.cart = current_cart
+    end
     if @user.save
-        session[:user_id] = @user.id      
+        session[:user_id] = @user.id
+        
         redirect_to :root, notice: "会員登録が完了しました。"
     else
         render "new"
     end
   end
+
   def destroy
     @user = current_user
     if @user.can_destroy?
-      redirect_to :root, notice: "配送中の商品があるため削除できません。"
-    else
+      current_cart.cart_items.destroy
       @user.destroy
-      redirect_to :account, notice: "アカウントを削除できませんでした。"
+      redirect_to :root, notice: "アカウントを削除しました。"
+    else
+      redirect_to :root, notice: "配送中の商品があるため削除できません。"
     end
   end
 end

@@ -29,9 +29,13 @@ class User < ApplicationRecord
     end
     
   private def create_cart
-    puts "############カートを作成しました。###############"
-    Cart.create(user: self)
+    
+    unless self.cart.present?
+      Cart.create(user: self)
+      puts "############カートを作成しました。###############"
+    end
   end
+
 
   def can_destroy?
     !self.items.joins(:order_items)

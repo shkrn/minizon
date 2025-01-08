@@ -26,7 +26,7 @@
         <% if current_user&.seller? %>
           <%= menu_link_to "出品者TOP", :seller_root %>
         <% elsif current_user&.buyer? || !login? %>
-          <%= menu_link_to "カート(#{@cart_items&.sum(:quantity) || 0})", :cart %>
+          <%= menu_link_to "カート(#{current_cart&.cart_items&.sum(:quantity) || 0})", :cart %>
         <% end %>
       <% end %>
     </ul>

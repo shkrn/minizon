@@ -44,6 +44,8 @@ class SessionsController < ApplicationController
     def destroy
       session.delete(:user_id)
       session.delete(:admin_id)
+      session.delete(:cart_id)
+      create_new_session_cart
       redirect_to root_path, notice: 'ログアウトしました。'
     end
   end

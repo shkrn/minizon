@@ -7,5 +7,6 @@
 <%= form_for @user, as: "account", url: :account do |form| %>
   <%= render "shared/user_form", form: form %>
   <% form.hidden_field :type, value: params[:type] %>
+  <% form.hidden_field :from, value: params[:from] %>
   <div><%= form.submit %></div>
 <% end %>

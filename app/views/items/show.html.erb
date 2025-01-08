@@ -113,6 +113,8 @@
             <%= link_to "問題を報告する", report_item_review_path(@item, review), method: :patch %>
           <% end %>
       </div>
+    <% else %>
+      <p>レビューはまだありません。</p>
     <% end %>
   <% end %>
 </div>

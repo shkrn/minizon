@@ -19,6 +19,7 @@
             <div class="itemlist-info">
                 <p class="itemlist-name"><%= link_to item.name, item %></p>
                 <p class="itemlist-price"><%= number_to_currency(item.price, :format => "%u%n", unit: "¥") %></p>
+                <%= render "shared/item_rating", item: item %>
                 <p><%= item.stock %></P>
                 <% if item.available?%>
                   <%= form_with url: cart_items_path, local: true do |form| %>
@@ -32,8 +33,6 @@
         </div>
       <% end %>
   </div>
-    </tbody>
-  </table>
   <%= paginate @items %>
 <% else %>
   <p>該当する商品がありません。</p>

@@ -3,7 +3,7 @@
   <div class="cart-container">
     <div class="cart-items">
     <h1>ショッピングカート</h1>
-      <% @cart_items.each do |ci| %>
+      <% @cart_items&.each do |ci| %>
         <div class="cart-item">
           <div class="item-image">
             <% if ci.item.item_picture.attached? %>
@@ -20,7 +20,7 @@
           </div>
           </div>
           <div class="item-price">
-            <span><%= number_to_currency(ci.item.price, unit: "¥")%></span>
+            <span><%= currency%><%= ci.item.price %></span>
           </div>
         </div>
       <% end %>

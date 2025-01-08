@@ -1,4 +1,4 @@
-<%#= render "shared/error", target: @user %>
+<%= render "shared/errors", obj: @user %>
 <table class="attr">
   <tr>
     <th width="150"><%= form.label :number, "ユーザー番号" %></th>
@@ -16,10 +16,12 @@
     <th><%= form.label :full_name, "氏名" %></th>
     <td><%= form.text_field :full_name %></td>
   </tr>
-  <tr>
-    <th><%= form.label :business_name, "ビジネスネーム" %></th>
-    <td><%= form.text_field :business_name %></td>
-  </tr>
+  <% if !current_user.admin? %>
+    <tr>
+      <th><%= form.label :business_name, "ビジネスネーム" %></th>
+      <td><%= form.text_field :business_name %></td>
+    </tr>
+  <% end %>
   <tr>
     <th><%= form.label :email, "メールアドレス" %></th>
     <td><%= form.text_field :email %></td>
@@ -32,21 +34,23 @@
     <th><%= form.label :phonenumber, "電話番号" %></th>
     <td><%= form.text_field :phonenumber %></td>
   </tr>
-  <% if params[:type] == "seller" %>
-    <tr>
-      <th><%= form.label :status, "ユーザー種別" %></th>
-      <td><%= form.hidden_field :status, value: "seller" %>出品者</td>
-  </tr>
-  <% elsif params[:type] == "buyer" %>
-    <tr>
-      <th><%= form.label :status, "ユーザー種別" %></th>
-      <td><%= form.hidden_field :status, value: "buyer" %>購入者</td>
+  <% if !current_user.admin? %>
+    <% if params[:type] == "seller" %>
+      <tr>
+        <th><%= form.label :status, "ユーザー種別" %></th>
+        <td><%= form.hidden_field :status, value: "seller" %>出品者</td>
     </tr>
-  <% else %>
-    <tr>
-      <th><%= form.label :status, "ユーザー種別" %></th>
-      <td><%= form.select :status, User.statuses.keys.map { |status| [I18n.t("enums.user.status.#{status}") , status] } %></td>
-    </tr>
+    <% elsif params[:type] == "buyer" %>
+      <tr>
+        <th><%= form.label :status, "ユーザー種別" %></th>
+        <td><%= form.hidden_field :status, value: "buyer" %>購入者</td>
+      </tr>
+    <% else %>
+      <tr>
+        <th><%= form.label :status, "ユーザー種別" %></th>
+        <td><%= form.select :status, User.statuses.keys.map { |status| [I18n.t("enums.user.status.#{status}") , status] } %></td>
+      </tr>
+    <% end %>
   <% end %>
     <% if @user.new_record? %>
       <tr>

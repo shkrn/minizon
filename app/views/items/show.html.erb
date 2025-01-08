@@ -11,8 +11,10 @@
   </div>
   <div class="product-details">
     <h2 class="product-title"><%= @item.name %></h2>
-    <p></p>
-    <div class="product-price"><%= currency%><%= @item.price %> 税込</div>
+
+    <%= render "shared/item_rating", item: @item %>
+
+    <div class="product-price"><%= currency%><%= @item.price %><span class="product-price-smalltext">税込</span></div>
     <hr>
     <p><%= @item.description %></p>
     <hr>
@@ -22,12 +24,24 @@
     <div class="item">
     <div class="product-condition"><%= @item.new? ? "新品" : "中古" %></div>
     <div class="product-price"><%= currency%><%= @item.price %><span class="product-price-smalltext">税込</span></div>
-    <div class="product-status"><%= I18n.t("enums.item.status.#{@item.status}") %></div>
+    <div class="product-status">
+    <% if @item.available? %>
+      <% if @item.stock > 10 %>
+        <span class="in-stock">在庫あり。</span>
+      <% elsif @item.stock > 0 %>
+        <span class="in-stock">残り<%= @item.stock %>点 ご注文はお早めに</span>
+      <% elsif @item.stock == 0 %>
+        <span class="sold-out">現在在庫切れです。</span>
+      <% end %>
+    <% elsif %>
+      <span class="sold-out">現在お取り扱いできません。</span>
+    <% end %>
+    </div>
         <% if @item.available? %>
           <%= form_with url: cart_items_path, local: true do |form| %>
             <%= form.hidden_field :item_id, value: @item.id %>
             <% options = (1..[@item.stock, 10].min).to_a %> 
-            <%= form.select :quantity, options  %>
+            数量:<%= form.select :quantity, options  , {} , {class: "buy-q-select"}%>
             <%= form.submit "カートに入れる", class: "buy-button" %>
           <% end %>
         <% end %>
@@ -38,12 +52,11 @@
         <td><%=link_to @item.user.business_name , user_path(@item.user_id)%></td>
       </tr>
       <tr>
-        <th>出品者の評価</th>
-        <td>★★★★★</td>
       </tr>
     </table>
     <hr>
     <div class="product-toolbar">
+    <% if !current_user&.admin? %>
       <% if current_user&.favorite_items&.exists?(item_id: @item.id) %>
         <p><%= link_to "お気に入りから削除", 
               item_favorite_item_path(@item, current_user.favorite_items.find_by(item_id: @item.id)), 
@@ -51,6 +64,7 @@
       <% else %>
         <p><%= link_to "お気に入りに追加", item_favorite_items_path(@item), method: :post %></p>
       <% end %>
+    <% end %>
     </div>
   </div>
 </div>
@@ -98,24 +112,38 @@
   <p><%= @item.description %></p>
   <h3>カスタマーレビュー</h3>
   <p><%= link_to "レビューを書く", new_item_review_path(@item) %></p>
-  <% if @item.reviews.present? %>
-    <% @item.reviews.each do |review| %>
-      <div class="review">
-        <div class="review-rating">評価：<%= review.rating %>点</div>
-        <div class="review-date"><%= review.created_at.strftime('%Y年%m月%d日')%>にレビュー済み</div>
-        <div class="review-content"><%= review.content %></div>
-        <div class="review-user">by <%= review.user.full_name %></div>
-        <div class="review-toolbar">
-          <% if login? && review.user_id == current_user.id %>
-            <%= link_to "編集", edit_item_review_path(@item, review) %>
-            <%= link_to "削除", item_review_path(@item, review), method: :delete, data: { confirm: "本当に削除しますか？" } %>
-          <% else %>
-            <%= link_to "問題を報告する", report_item_review_path(@item, review), method: :patch %>
+  <div class="reviews">
+    <% if @item.reviews.present? %>
+      <% @item.reviews.each do |review| %>
+        <div class="review">
+          <div class="review-user"><%= review.user.full_name %></div>
+          <div class="review-rating">
+            <% if review.rating == 1 %>
+              ★☆☆☆☆
+            <% elsif review.rating == 2 %>
+              ★★☆☆☆
+            <% elsif review.rating == 3 %>
+              ★★★☆☆
+            <% elsif review.rating == 4 %>
+              ★★★★☆
+            <% elsif review.rating == 5 %>
+            ★★★★★
           <% end %>
-      </div>
+          </div>
+          <div class="review-date"><%= review.created_at.strftime('%Y年%m月%d日')%>にレビュー済み</div>
+          <div class="review-content"><%= review.content %></div>
+          <div class="review-toolbar">
+            <% if login? && review.user_id == current_user.id %>
+              <%= link_to "編集", edit_item_review_path(@item, review) %>
+              <%= link_to "削除", item_review_path(@item, review), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+            <% else %>
+              <%= link_to "問題を報告する", report_item_review_path(@item, review), method: :patch %>
+            <% end %>
+        </div>
+      <% end %>
     <% else %>
-      <p>レビューはまだありません。</p>
+        <p>レビューはまだありません。</p>
     <% end %>
-  <% end %>
+  </div>
 </div>
 </html>

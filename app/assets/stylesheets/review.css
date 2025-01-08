@@ -1,0 +1,34 @@
+
+  .reviews {
+    margin-left: 20px;
+    font-size: 14px;
+  }
+  .review {
+    margin: 20px 0 20px 0;
+  }
+  .review-user {
+    margin: 10px 25px 10px;
+  }
+  .review-rating {
+    color: rgb(209,126,56)
+  }
+  .review-date {
+    color: gray;
+  }
+  .review-content {
+    margin: 10px 0 5px 0;
+  }
+  .review-toolbar {
+    text-align: left; /* テキストを左寄せ */
+    color: grey
+  }
+  .review-count-p {
+    color: #2162a1;
+    font-size: 0.8em;
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    
+  }
+

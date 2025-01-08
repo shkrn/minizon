@@ -24,8 +24,8 @@ body {
   }
   
   /* リンク */
-  a:link { color: #00c; }
-  a:visited { color: #00c; }
+  a:link { color: #2162a1; }
+  a:visited { color: #2162a1; }
   a:hover { color: #f00; }
   a img { border: none; }
   a {
@@ -175,19 +175,21 @@ main#main-content {
   
   /* メインコンテンツ */
   main h1 {
-    color: #88c;
+    /*color: #88c;*/
+    color:#1a1a22;
     font-weight: normal;
     font-size: 150%;
-    border-bottom: 2px solid #88c;
+    /* border-bottom: 2px solid #88c; */
     margin-bottom: 0.5em;
   }
   
   main h2 {
-    color: #99d;
+    /*color: #99d;*/
+    color:#1a1a22;
     font-weight: bold;
     font-size: 120%;
     margin-bottom: 0.5em;
-    border-bottom: 1px solid #ccf;
+    /* border-bottom: 1px solid #ccf; */
   }
   
   main p {

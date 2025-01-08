@@ -1,12 +1,16 @@
 class Admin < ApplicationRecord
     has_secure_password
-    validates :email, presence: true, uniqueness: true
+    validates :email, presence: true
 
     def seller?
       false
     end
     def buyer?
       false
+    end
+
+    def admin?
+      true
     end
 
     class << self

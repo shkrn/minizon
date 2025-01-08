@@ -10,8 +10,42 @@ class ApplicationController < ActionController::Base
 
     class LoginRequired < StandardError; end
     class Forbidden < StandardError; end
+
+    if Rails.env.production? || ENV["RESCUE_EXCEPTIONS"]
+        rescue_from StandardError, with: :rescue_internal_server_error
+        rescue_from ActiveRecord::RecordNotFound, with: :rescue_not_found
+        rescue_from ActionController::ParameterMissing, with: :rescue_bad_request
+        rescue_from LoginRequired, with: :rescue_login_required
+        rescue_from Forbidden, with: :rescue_forbidden
+    end
+
     private def login_required
         raise LoginRequired unless current_user
+    end
+
+    private def rescue_bad_request(exception)
+        render "errors/bad_request", status:400, layout: "error",formats: [:html]
+    end
+
+    private def rescue_login_required(exception)
+        render "errors/login_required", status:403, layout: "error",formats: [:html]
+    end
+
+    private def rescue_forbidden(exception)
+        render "errors/forbidden", status: 403, layout: "error",formats: [:html]
+    end
+
+    private def rescue_not_found(exception)
+        render "errors/not_found", status:404, layout: "error",formats: [:html]
+    end
+
+    private def rescue_internal_server_error(exception)
+        render "errors/internal_server_error", status: 500, layout: "error",formats: [:html]
+    end
+
+    private def update_expiration_time
+        #cookies.signed[:member_id] = {value: cookies.signed[:member_id],expires:15.second.from_now}
+        cookies.signed[:member_id] = {value: cookies.signed[:member_id],expires:24.hour.from_now}
     end
 
     def login?
@@ -40,9 +74,14 @@ class ApplicationController < ActionController::Base
     end
 
     private def current_cart
-        return find_user_cart if login?
-        find_or_create_session_cart
-    end
+            if admin?
+                nil
+            elsif login?
+                return find_user_cart
+            else
+                find_or_create_session_cart
+            end
+      end
 
     private def find_user_cart
         Cart.find_by(user_id: current_user.id) || Cart.create(user_id: current_user.id)

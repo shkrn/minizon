@@ -6,9 +6,13 @@
   <%= menu_link_to "アカウント情報の編集", :edit_account %>
   <%= menu_link_to "パスワードの変更", :edit_password %>
   <%= menu_link_to "アカウントの削除", account_path,method: :delete,data:{confirm:"本当に削除しますか？"} %>
+<% if !current_user.admin? %>
   <%= menu_link_to "行ったレビュー一覧", user_reviews_path(current_user) %>
   <%= menu_link_to "お気に入り履歴",  favorites_users_path%>
   <%= menu_link_to "問い合わせ一覧", rooms_path %>
+<% elsif %>
+  <%= menu_link_to "管理者TOP", admin_root_path %>
+<% end %>
 </ul>
 
-<%= render "users/body" %>
+<%= render "shared/user_userbody" %>

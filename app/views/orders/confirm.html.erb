@@ -30,21 +30,21 @@
                 <h2>ご注文商品</h2>
                 <% @cart_items.each do |ci| %>
                     <div class="cart-item">
-                    <div class="item-image">
-                        <% if ci.item.item_picture.attached? %>
-                        <%= image_tag ci.item.item_picture.variant(resize: "100x100") %>
-                        <% end %> 
-                    </div>
-                    <div class="item-details">
-                        <h3 class="item-title"><%= link_to ci.item.name, ci.item %></h3>
-                        <div class="item-quantity">
-                        
-                        <span>数量：<%= ci.quantity %></span>
-                    </div>
-                    </div>
-                    <div class="item-price">
-                        <span><%= number_to_currency(ci.item.price, unit: "¥")%></span>
-                    </div>
+                        <div class="item-image">
+                            <% if ci.item.item_picture.attached? %>
+                            <%= image_tag ci.item.item_picture.variant(resize: "100x100") %>
+                            <% end %> 
+                        </div>
+                        <div class="item-details">
+                            <h3 class="item-title"><%= link_to ci.item.name, ci.item %></h3>
+                            <div class="item-quantity">
+                            
+                            <span>数量：<%= ci.quantity %></span>
+                        </div>
+                        </div>
+                        <div class="item-price">
+                            <span><%= currency%><%= ci.item.price %></span>
+                        </div>
                     </div>
                 <% end %>
             </div>

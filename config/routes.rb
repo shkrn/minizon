@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   root "top#index"
+  get "bad_request" => "top#bad_request"
+  get "forbidden" => "top#forbidden"
+  get "internal_server_error" => "top#internal_server_error"
 
   resources :users,only: [:index,:show,:favorites] do
     resources :reviews, only: [:index, :destroy, :edit, :update]
@@ -35,7 +38,8 @@ Rails.application.routes.draw do
     patch :return, on: :member
   end
 
-  
+  get "login" => "top#login"
+  post "login" => "sessions#create"
 
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :index, :show, :destroy]

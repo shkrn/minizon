@@ -1,0 +1,24 @@
+<div class="review-rating">
+    <% if item.reviews.exists? %>
+        <% rating_sum = item.reviews.sum(:rating).to_f %>
+        <% if item.reviews.any? %>
+            <% rating_avg = rating_sum.to_f / item.reviews.length %>
+        <% else %>
+            <% rating_avg = 0.0 %>
+        <% end %>
+        <% if rating_avg > 4.5 %>
+                ★★★★★
+            <% elsif rating_avg > 3.5 %>
+                ★★★★☆
+            <% elsif rating_avg > 2.5 %>
+                ★★★☆☆
+            <% elsif rating_avg > 1.5 %>
+                ★★☆☆☆
+            <% elsif rating_avg > 0.5 %>
+                ★☆☆☆☆
+            <% else %>
+                ☆☆☆☆☆
+        <% end %>
+        <span class="review-count-p">(<%= item.reviews.length %>)</span>
+    <% end %>
+</div>

@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-    before_action :login_required, only: [:new, :create]
+    before_action :login_required, only: [:new, :create, :edit, :update, :destroy]
     def index
         @reviews = Review.order(created_at: :desc).page(params[:page]).per(30)
         @myreviews = current_user.reviews.order(created_at: :desc)

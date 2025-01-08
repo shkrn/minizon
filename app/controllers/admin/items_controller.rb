@@ -5,9 +5,9 @@ class Admin::ItemsController < Admin::Base
     def index
         if params[:user_id].present?
             @user = User.find(params[:user_id])
-            @items = @user.items.order(id: :asc)
+            @items = @user.items.order(id: :asc).page(params[:page]).per(30)
         else
-            @items = Item.order(id: :asc)
+            @items = Item.order(id: :asc).page(params[:page]).per(30)
         end
     end
     def show
@@ -38,7 +38,7 @@ class Admin::ItemsController < Admin::Base
         end
     end
     def search
-        @items = Item.search(params[:q])
+        @items = Item.search(params[:q]).page(params[:page]).per(30)
         render "index"
     end
 end

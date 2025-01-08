@@ -1,5 +1,5 @@
 class CartItemsController < ApplicationController
-    
+
     def index
         
     end
@@ -19,6 +19,11 @@ class CartItemsController < ApplicationController
     def create
         puts "-------------------------------"
         puts current_user
+
+        if current_user&.admin?
+            redirect_to root_path, notice: "管理者ユーザーはカートを利用できません" and return
+          end
+
         #カートにアイテムを追加する
         ci = current_cart.cart_items.find_by(item_id: params[:item_id])
         #数量更新

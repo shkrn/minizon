@@ -1,6 +1,7 @@
 class OrderItem < ApplicationRecord
     belongs_to :order
     belongs_to :item
+    validates :quantity, numericality: { only_integer: true, greater_than: 0 }
     enum delivery: {
         undelivered: 0,
         shipped: 1,

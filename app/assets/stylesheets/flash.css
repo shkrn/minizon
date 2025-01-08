@@ -3,5 +3,6 @@ p.notice {
     border: 0px solid blue;
     padding: 3px;
     background-color: #aaed9f;
+    border-radius: 5px;
   }
   

@@ -3,11 +3,19 @@
 <% if @favorite_items.present? %>
   <div class="favorite_item-list">
     <% @favorite_items.each do |favorite_item| %>
-      <div class="favorite_item-item">
-        <%= link_to favorite_item.item.name, item_path(favorite_item.item) %>
-        <p><%= favorite_item.item.price %>円</p>
-        <%# お気に入り解除ボタンなど %>
-         <%= button_to "お気に入り解除", item_favorite_item_path(favorite_item.item.id, favorite_item.id), method: :delete %>
+      <div class="cart-item">
+        <div class="item-image">
+            <% if favorite_item.item.item_picture.attached? %>
+            <%= image_tag favorite_item.item.item_picture.variant(resize: "100x100") %>
+            <% end %> 
+        </div>
+        <div class="item-details">
+            <h3 class="item-title"><%= link_to favorite_item.item.name, favorite_item.item %></h3>
+            <%= currency%><%= favorite_item.item.price %>
+        </div>
+        <div class="item-price">
+            <%= button_to "お気に入り解除", item_favorite_item_path(favorite_item.item.id, favorite_item.id), method: :delete,class:"cartconfirm-buy-button" %>
+        </div>
       </div>
     <% end %>
   </div>

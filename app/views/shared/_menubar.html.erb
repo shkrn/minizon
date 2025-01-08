@@ -17,11 +17,11 @@
             method: :delete, data: { confirm: "ログアウトしますか？" } %>
         </ul>
       <% else %>
-        <%= menu_link_to "ログイン", "#" %>
+        <%= menu_link_to "ログイン", :login %>
       <% end %>
       <%= menu_link_to "お気に入り", favorites_users_path %>
       <%= menu_link_to "注文履歴", :orders %>
-      <%= menu_link_to "マイページ", "#" %>
+      <%= menu_link_to "マイページ", :account %>
       <% if !admin? %>
         <% if current_user&.seller? %>
           <%= menu_link_to "出品者TOP", :seller_root %>

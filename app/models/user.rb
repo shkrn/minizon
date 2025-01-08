@@ -19,6 +19,10 @@ class User < ApplicationRecord
 
     attr_accessor :current_password
     validates :password, presence: { if: :current_password }
+    validates :full_name, presence: true, length: { maximum: 20 }
+    validates :family_name, length: { maximum: 20 }
+    validates :given_name, length: { maximum: 20 }
+    validates :email, email: { allow_blank: true }
 
     def display_name
       if seller?

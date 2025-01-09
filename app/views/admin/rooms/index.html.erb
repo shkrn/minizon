@@ -1,0 +1,28 @@
+<% @page_title = "問い合わせ一覧" %>
+
+<h1><%= @page_title %></h1>
+
+
+<% if @rooms.exists? %>
+    <% @rooms.each do |room| %>
+        <div class="card">
+            <div class="card-body">
+                <div class="chat-user-name">
+                    <%= link_to room.id,admin_room_path(room) %>
+                </div>
+                <div class="chat-participant">
+                    参加者:
+                    <% room.entries.each do |e| %>
+                        <%= link_to e.user.display_name,admin_user_path(e.user) %>
+                    <% end %>
+                </div>
+                <div class="chat-date">
+                    <%= room.updated_at&.strftime('%Y/%m/%d %H:%m') %>
+                </div>
+                <%= link_to "削除",admin_room_path(room), method: :delete ,confirm: "本当に削除しますか？" %>
+            </div>
+        </div>
+    <% end %>
+<% else %>
+    <p>まだメッセージはありません。</p>
+<% end %>

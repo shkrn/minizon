@@ -82,6 +82,7 @@ Rails.application.routes.draw do
     resources :admins do
       get :search, on: :collection
     end
+    resources :rooms
   end
 
   post "order/confirm" => "orders#confirm"

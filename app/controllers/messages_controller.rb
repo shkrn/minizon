@@ -3,7 +3,13 @@ class MessagesController < ApplicationController
 
     def create
         @message = Message.new(message_params)
-        @message.user_id = current_user.id
+        if current_user.admin?
+          puts "admin"
+          @message.user_id = nil
+        else
+          @message.user_id = current_user.id
+        end
+        
         if @message.save
           redirect_to room_path(@message.room)
         else

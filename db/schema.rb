@@ -120,7 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_05_101854) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.integer "item_id"
     t.integer "room_id", null: false
     t.text "message", null: false

@@ -6,8 +6,8 @@
 <ul class="toolbar">
   <%= menu_link_to "出品商品一覧",  user_items_path(@user) %>
 
-  <% if login? %>
-    <% if current_user.favorite_users.exists?(favorite_user_id: @user.id) %>
+  <% if login? && !current_user.admin? %>
+    <% if current_user&.favorite_users.exists?(favorite_user_id: @user.id) %>
       <%= menu_link_to "お気に入りを解除", user_favorite_user_path(@user),method: :delete%>
     <% else %>
       <%= menu_link_to "お気に入りに追加", user_favorite_users_path(@user),method: :post %>

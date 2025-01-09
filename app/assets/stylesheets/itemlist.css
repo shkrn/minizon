@@ -18,11 +18,11 @@ div#itemlist {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 280px)); /* レスポンシブなグリッド */
   grid-auto-rows: minmax(500px, auto);
-  grid-gap: 18px;
+  grid-gap: 10px;
 }
 
 .itemlist-card {
-  border: 1px solid #ddd; /* カードの枠線 */
+  border: 1.5px solid rgb(250,250,250); /* カードの枠線 */
   padding: 10px;
   border-radius: 5px; /* 角丸 */
   overflow: hidden; /* 画像がはみ出さないように */
@@ -65,6 +65,15 @@ div#itemlist {
   color: #b12704;
 }
 
+.itemlist-text {
+  font-size: 13px;
+  margin-bottom: 0.5px;
+}
+
+.itemlist-status {
+  font-size: 13px;
+  color: #b12704;
+}
 .itemlist-buy-button {
   background-color: rgb(248, 218, 78); /* 近似の色 */
   border: none;

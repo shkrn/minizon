@@ -26,18 +26,21 @@
       <% end %>
     </div>
     <div class="cart-total">
-      
-      <h3>小計 (<%= @cart_items.sum(:quantity) %>個の商品)(税込)</h3>
-      <div class="total-price">
-        <span>: <%= currency%><%= current_cart.price %></span>
-      </div>
-      <%= form_with url: order_confirm_path, local: true do |form| %>
-        <% @cart_items.each do |ci| %>
-          <%= form.hidden_field :item_id, value: ci.id %> 
-          <%= form.hidden_field :quantity, value: ci.quantity %>
-          <%= form.hidden_field :price, value: ci.price %>
-        <% end %> 
-        <%= form.submit "レジに進む", class: "buy-button" %>
+      <% if @cart_items.present? %>
+        <h3>小計 (<%= @cart_items.sum(:quantity) %>個の商品)(税込)</h3>
+        <div class="total-price">
+          <span>: <%= currency%><%= current_cart.price %></span>
+        </div>
+        <%= form_with url: order_confirm_path, local: true do |form| %>
+          <% @cart_items.each do |ci| %>
+            <%= form.hidden_field :item_id, value: ci.id %> 
+            <%= form.hidden_field :quantity, value: ci.quantity %>
+            <%= form.hidden_field :price, value: ci.price %>
+          <% end %> 
+          <%= form.submit "レジに進む", class: "buy-button" %>
+        <% end %>
+      <% else %>
+        <p>カートに商品がありません</p>
       <% end %>
     </div>
   </div>

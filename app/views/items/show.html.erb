@@ -30,14 +30,14 @@
         <span class="in-stock">在庫あり。</span>
       <% elsif @item.stock > 0 %>
         <span class="in-stock">残り<%= @item.stock %>点 ご注文はお早めに</span>
-      <% elsif @item.stock == 0 %>
+      <% elsif @item.stock <= 0 %>
         <span class="sold-out">現在在庫切れです。</span>
       <% end %>
     <% elsif %>
       <span class="sold-out">現在お取り扱いできません。</span>
     <% end %>
     </div>
-        <% if @item.available? %>
+        <% if @item.available? && @item.stock >= 1%>
           <%= form_with url: cart_items_path, local: true do |form| %>
             <%= form.hidden_field :item_id, value: @item.id %>
             <% options = (1..[@item.stock, 10].min).to_a %> 
@@ -131,6 +131,9 @@
           <% end %>
           </div>
           <div class="review-date"><%= review.created_at.strftime('%Y年%m月%d日')%>にレビュー済み</div>
+          <% if review.user.orders.joins(:order_items).where(order_items: { item_id: @item.id }).exists? %>
+            <div class="review-buyer">このページで購入</div>
+          <% end %>
           <div class="review-content"><%= review.content %></div>
           <div class="review-toolbar">
             <% if login? && review.user_id == current_user.id %>

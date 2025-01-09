@@ -8,7 +8,7 @@
       <%= form_tag :search_items, method: :get, class: "search" do %>
         <%= text_field_tag "q", params[:q], placeholder: "商品検索..." %>
         <%= submit_tag "検索" %>
-      <% end %>
+        <% end %>
       <% end %>
       <% if current_user %>
         <ul class="account-menu">
@@ -19,10 +19,12 @@
       <% else %>
         <%= menu_link_to "ログイン", :login %>
       <% end %>
+      <% if !admin? %>
+
       <%= menu_link_to "お気に入り", favorites_users_path %>
       <%= menu_link_to "注文履歴", :orders %>
       <%= menu_link_to "マイページ", :account %>
-      <% if !admin? %>
+      
         <% if current_user&.seller? %>
           <%= menu_link_to "出品者TOP", :seller_root %>
         <% elsif current_user&.buyer? || !login? %>

@@ -8,6 +8,13 @@ class ApplicationController < ActionController::Base
     end
     helper_method :current_user
 
+    def update_cart_price
+        cart.update!(price: cart.cart_items.sum { |c| c.price * c.quantity })
+        puts "カートの合計金額を更新しました。"
+    end
+
+    helper_method :update_cart_price
+
     class LoginRequired < StandardError; end
     class Forbidden < StandardError; end
 

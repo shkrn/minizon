@@ -16,6 +16,11 @@ class OrdersController < ApplicationController
 
   def create
     if current_cart.cart_items.count != 0
+      
+      if cart_check
+        redirect_to :cart, notice: "商品の価格が変更されています。" and return
+      end
+
       @order = Order.new(params[:order])
       @order.user_id = current_user.id
       @order.quantity = current_cart.cart_items.sum(:quantity)
@@ -28,10 +33,14 @@ class OrdersController < ApplicationController
             price: ci.price,
             delivery: 0
           )
-          ci.destroy
-          
+          ###########
           item = Item.find(ci.item_id)
           item.stock = item.stock - ci.quantity
+          if item.stock < 0
+            redirect_to cart_path, notice: "在庫が足りません。" and return
+          end
+          ############
+          ci.destroy
           item.save!
         end
         current_cart.update!(price: 0)
@@ -46,6 +55,9 @@ class OrdersController < ApplicationController
 
   def confirm
     @cart_items = CartItem.where(cart_id: current_cart.id)
+    if cart_check
+      redirect_to :cart, notice: "商品の価格が変更されています。" and return
+    end
     if @cart_items.count == 0
       redirect_to :cart, notice: "カートに商品がありません。"
     elsif !login?
@@ -55,5 +67,18 @@ class OrdersController < ApplicationController
       @order.user_id = current_user.id
       render "confirm" unless @order.valid?
     end
+  end
+
+  def cart_check
+    current_cart.cart_items.each do |ci|
+      if ci.price != Item.find(ci.item_id).price
+        ci.price = Item.find(ci.item_id).price
+        ci.save!
+        current_cart.update!(price: current_cart.cart_items.sum { |c| c.price * c.quantity })
+        #redirect_to :cart, notice: "商品の価格が変更されています。" and return
+        return true
+      end
+    end
+    false
   end
 end

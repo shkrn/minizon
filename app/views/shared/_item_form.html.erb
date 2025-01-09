@@ -13,10 +13,12 @@
       <% end %>
     </td>
   </tr>
-  <tr>
-    <th><%= form.label :id, "商品ID" %></th>
-    <td><%= @item.id %></td>
-  </tr>
+  <% if !@item.new_record? %>
+    <tr>
+      <th><%= form.label :id, "商品ID" %></th>
+      <td><%= @item.id %></td>
+    </tr>
+  <% end %>
   <tr>
     <th><%= form.label :name, "商品名" %></th>
     <td><%= form.text_field :name %></td>

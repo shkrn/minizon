@@ -26,7 +26,7 @@
       <% end %>
     </div>
     <div class="cart-total">
-      <% if @cart_items.present? %>
+      <%# if @cart_items.present? %>
         <h3>小計 (<%= @cart_items.sum(:quantity) %>個の商品)(税込)</h3>
         <div class="total-price">
           <span>: <%= currency%><%= current_cart.price %></span>
@@ -39,8 +39,8 @@
           <% end %> 
           <%= form.submit "レジに進む", class: "buy-button" %>
         <% end %>
-      <% else %>
-        <p>カートに商品がありません</p>
-      <% end %>
+      <%# else %>
+        <!--<p>カートに商品がありません</p>-->
+      <%# end %>
     </div>
   </div>

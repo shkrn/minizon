@@ -20,7 +20,7 @@
                 <p class="itemlist-name"><%= link_to item.name, item %></p>
                 <p class="itemlist-price"><%= number_to_currency(item.price, :format => "%u%n", unit: "¥") %></p>
                 <%= render "shared/item_rating", item: item %>
-                <p class="itemlist-text" ><%= item.stock %></p>
+                <!--<p class="itemlist-text" >在庫数：<%= item.stock %>点</p>-->
                 <% if item.available? %>
                   <% if item.stock > 0 && item.stock < 10 %>
                     <span class="itemlist-status">残り<%= item.stock %>点 ご注文はお早めに</span>

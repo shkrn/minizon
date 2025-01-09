@@ -6,7 +6,7 @@
         <%= submit_tag 'Search' %>-->
 
       <%= form_tag :search_items, method: :get, class: "search" do %>
-        <%= text_field_tag "q", params[:q], placeholder: "商品検索..." %>
+        <%= text_field_tag "q", params[:q], placeholder: "検索..." %>
         <%= submit_tag "検索" %>
         <% end %>
       <% end %>

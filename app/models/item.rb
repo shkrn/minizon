@@ -24,17 +24,43 @@ class Item < ApplicationRecord
     validates :status, presence: true
     validates :stock, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-    before_save do
-        if new_item_picture
-        self.item_picture = new_item_picture
+    validate :prevent_remove_without_new_image, on: :update
+
+    private
+
+    def prevent_remove_without_new_image
+        # 更新時に remove_item_picture が指定され、かつ新しい画像がない場合はエラーにする
+        if remove_item_picture && new_item_picture.blank?
+        errors.add(:item_picture, "を削除できません。新しい画像をアップロードしてください。")
         end
     end
+
+    validate if: :new_item_picture do
+        if new_item_picture.respond_to?(:content_type)
+            unless new_item_picture.content_type.in?(ALLOWED_CONTENT_TYPES)
+                errors.add(:new_item_picture, :invalid_image_type)
+            end
+        else
+            errors.add(:new_item_picture, :invalid)
+        end
+    end
+
+    before_save do
+        if new_item_picture
+            self.item_picture = new_item_picture
+        elsif remove_item_picture
+            self.item_picture.purge
+        end
+    end
+    
     class << self
         def search(query)
-            rel = order("id")
+            rel = order("items.id")
             if query.present?
-                rel = rel.where(
-                    "name LIKE ? OR description LIKE ?",
+                rel = rel.joins(:user).where(
+                    "name LIKE ? OR description LIKE ? OR users.business_name LIKE ? OR users.id LIKE ?",
+                    "%#{query}%",
+                    "%#{query}%",
                     "%#{query}%",
                     "%#{query}%"
                     )

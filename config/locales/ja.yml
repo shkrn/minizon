@@ -31,7 +31,11 @@
 
 ja:
   hello: "こんにちは"
-
+  activerecord:
+      errors:
+        messages:
+            wrong: "is wrong"
+            invalid_image_type: "must be an image in JPEG, PNG, GIF, or BMP format"
   enums:
     order_item:
       delivery:

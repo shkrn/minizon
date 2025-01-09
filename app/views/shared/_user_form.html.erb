@@ -16,7 +16,7 @@
     <th><%= form.label :full_name, "氏名" %></th>
     <td><%= form.text_field :full_name %></td>
   </tr>
-  <% if !current_user.admin? %>
+  <% if !current_user&.admin? %>
     <tr>
       <th><%= form.label :business_name, "ビジネスネーム" %></th>
       <td><%= form.text_field :business_name %></td>
@@ -34,7 +34,7 @@
     <th><%= form.label :phonenumber, "電話番号" %></th>
     <td><%= form.text_field :phonenumber %></td>
   </tr>
-  <% if !current_user.admin? %>
+  <% if !current_user&.admin? %>
     <% if params[:type] == "seller" %>
       <tr>
         <th><%= form.label :status, "ユーザー種別" %></th>

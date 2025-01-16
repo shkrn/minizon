@@ -27,7 +27,7 @@
     </div>
     <div class="cart-total">
       <%# if @cart_items.present? %>
-        <h3>小計 (<%= @cart_items.sum(:quantity) %>個の商品)(税込)</h3>
+        <h3>小計 (<%= @cart_items.sum(:quantity) || 0%>個の商品)(税込)</h3>
         <div class="total-price">
           <span>: <%= currency%><%= current_cart.price %></span>
         </div>

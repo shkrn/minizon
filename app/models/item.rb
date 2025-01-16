@@ -19,10 +19,11 @@ class Item < ApplicationRecord
 
 
     validates :name, presence: true, length: { maximum: 50 }
-    validates :description, presence: true, length: { maximum: 1000 }
-    validates :price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than: 100000000 }
+    validates :code, presence: true, length: { maximum: 30 }
+    validates :description, presence: true, length: { maximum: 500 }
+    validates :price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100000000 }
     validates :status, presence: true
-    validates :stock, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+    validates :stock, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 99 }
 
     validate :prevent_remove_without_new_image, on: :update
 

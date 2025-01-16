@@ -136,6 +136,21 @@ main#main-content {
   }
   
   /* メニューバー */
+
+  .menubar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menubar li {
+      margin-right: 15px;
+  }
+
+  
   nav.menubar {
     padding: 2px;
     background-color: #1a1a22;
@@ -247,3 +262,23 @@ main#main-content {
   aside#sidebar li {
     margin-bottom: 0.3em;
   }
+
+  .search-container {
+    display: flex;
+    
+  }
+  .search-box {
+    width: 600px;
+    position: relative;
+    border: 1px solid #949494;
+    border-right: none;
+    padding: 5px;
+    border-radius: 30px;
+    outline: none;
+    color: #000000;
+  }
+
+  .search-button {
+    text-align: center;
+  }
+ 

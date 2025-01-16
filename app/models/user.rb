@@ -18,11 +18,17 @@ class User < ApplicationRecord
     after_create :create_cart
 
     attr_accessor :current_password
-    validates :password, presence: { if: :current_password }
-    validates :full_name, presence: true, length: { maximum: 20 }
-    validates :family_name, length: { maximum: 20 }
-    validates :given_name, length: { maximum: 20 }
-    validates :email, email: { allow_blank: true }
+    validates :password, presence: { if: :current_password }, length: {minimum:8,maximum:16}, format: { with: /\A[[:alnum:][:punct:]]+\z/ }
+    validates :full_name, length: { maximum: 20 }
+
+    validates :family_name, presence:true ,length: { maximum: 15 }
+    validates :given_name, presence:true ,length: { maximum: 15 }
+    validates :business_name, presence:true ,length: { minimum: 2, maximum: 15 }, uniqueness: true
+    validates :email, presence:true , uniqueness: true
+    validates :address, presence:true ,length: { maximum: 50 }
+    validates :phonenumber, length: { minimum: 8, maximum: 20 },
+                            format: { with: /\A\d-?\d+\z/}
+
 
     def display_name
       if seller?

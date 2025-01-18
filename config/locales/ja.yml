@@ -42,6 +42,7 @@ ja:
         undelivered: "未配送"
         shipped: "配送中"
         delivered: "配達済み"
+        canceled: "キャンセル済み"
         returning: "返送処理中"
         returned: "返品完了"
     item:

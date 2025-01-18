@@ -2,21 +2,22 @@ class ItemsController < ApplicationController
         before_action :login_required, only: [:new, :create, :edit, :update, :destroy]
         PER_PAGE = 20
     def index
+        @items = Item.where(status: "available")
 
-        @items = Item.order("id").page(params[:page]).per(PER_PAGE)
-
-        if params[:category_id]
-            @items = @items.where(category_id: params[:category_id]).order("id").page(params[:page]).per(PER_PAGE)
+        if params[:category_id].present?
+            @items = @items.where(category_id: params[:category_id])
         end
-        if params[:user_id]
-            @items = @items.where(user_id: params[:user_id]).order("id").page(params[:page]).per(PER_PAGE)
+        if params[:user_id].present?
+            @items = @items.where(user_id: params[:user_id])
         end
         if params[:min_price].present?
-            @items = @items.where('price >= ?', params[:min_price]).order("id").page(params[:page]).per(PER_PAGE)
+            @items = @items.where('price >= ?', params[:min_price])
         end
         if params[:max_price].present?
-            @items = @items.where('price <= ?', params[:max_price]).order("id").page(params[:page]).per(PER_PAGE)
+            @items = @items.where('price <= ?', params[:max_price])
         end
+
+        @items = @items.order("id").page(params[:page]).per(PER_PAGE)
     end
     def show
         @item = Item.find(params[:id])

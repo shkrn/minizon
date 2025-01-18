@@ -1,10 +1,14 @@
 <nav class="menubar">
-    <ul>
+    <ul class="menubar">
       <%= menu_link_to "TOP", :root %>
-      <%= form_with(url: '#', method: :get, local: true) do %>
-        <%= text_field_tag :q, '', placeholder: 'Search...' %>
-        <%= submit_tag 'Search' %>
+
+
+      <%= form_tag :search_items, method: :get, class: "search-container" do %>
+        <%= text_field_tag "q", params[:q], placeholder: "検索...", class: "search-box" %>
+        <%= submit_tag "検索",class: "search-button" %>
       <% end %>
+
+
       <% if current_user %>
         <ul class="account-menu">
         <%= menu_link_to current_user.full_name + "さん", :account %>
@@ -12,9 +16,9 @@
             method: :delete, data: { confirm: "ログアウトしますか？" } %>
         </ul>
       <% else %>
-        <%= menu_link_to "ログイン", "#" %>
+        <%= menu_link_to "ログイン", :login %>
       <% end %>
-      <%= menu_link_to "マイページ", "#" %>
+      <%#= menu_link_to "マイページ", "#" %>
       <%= menu_link_to "出品者TOP", :seller_root %>
       <%= menu_link_to "出品商品管理", :seller_items %>
       <%= menu_link_to "注文管理", :seller_orders %>

@@ -3,12 +3,18 @@
 
 <%= form_tag :search_admin_users, method: :get, class: "search" do %>
   <%= text_field_tag "q", params[:q] %>
+  <%= radio_button_tag 'status', 'seller', params[:status] == 'seller' %>
+  <%= label_tag "出品者" %>
+  <%= radio_button_tag 'status', 'buyer', params[:status] == 'buyer' %>
+  <%= label_tag "購入者" %>
+  <%= radio_button_tag 'status', "null", params[:status].nil? || params[:status] == 'null' %>
+  <%= label_tag "指定なし" %>
   <%= submit_tag "検索" %>
 <% end %>
 
 <div class="toolbar">
 <%= link_to "管理者アカウントの管理", admin_admins_path %> |
-<%= link_to "会員の新規登録","#" %>
+<%#= link_to "会員の新規登録","#" %>
 </div>
 
 <% if @users.present? %>

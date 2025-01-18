@@ -1,16 +1,11 @@
 <nav class="menubar">
     <ul class="menubar">
-      
-      <!--<%= form_with(url: '#', method: :get, local: true) do %>
-        <%= text_field_tag :q, '', placeholder: 'Search...' %>
-        <%= submit_tag 'Search' %>-->
 
       <%= menu_link_to "TOP", :root %>
 
       <%= form_tag :search_items, method: :get, class: "search-container" do %>
         <%= text_field_tag "q", params[:q], placeholder: "検索...", class: "search-box" %>
         <%= submit_tag "検索",class: "search-button" %>
-        <% end %>
       <% end %>
       
       
@@ -30,6 +25,9 @@
         <% elsif current_user&.buyer? || !login? %>
           <%= menu_link_to "カート(#{current_cart&.cart_items&.sum(:quantity) || 0})", :cart %>
         <% end %>
+      <% else %>
+          <%= menu_link_to "管理者TOP", :admin_root %>
       <% end %>
+        
     </ul>
 </nav>

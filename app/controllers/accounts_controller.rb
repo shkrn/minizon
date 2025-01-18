@@ -12,7 +12,15 @@ class AccountsController < ApplicationController
     @user = current_user
     @user.assign_attributes(params[:account])
     if @user.save
-      redirect_to :account, notice: "アカウント情報を更新しました。"
+      if current_user.seller?
+        redirect_to :account, notice: "出品者情報を更新しました。"
+      elsif current_user.buyer?
+        redirect_to :account, notice: "購入者情報を更新しました。"
+      elsif current_user&.admin?
+        redirect_to :account, notice: "管理者情報を更新しました。"
+      else
+        redirect_to :account, notice: "情報を更新しました。"
+      end
     else
       render "edit"
     end
@@ -42,7 +50,11 @@ class AccountsController < ApplicationController
     if @user.save
         session[:user_id] = @user.id
         
-        redirect_to :root, notice: "会員登録が完了しました。"
+        if current_user.seller?
+            redirect_to seller_root_path, notice: "出品者登録が完了しました。"
+        else
+            redirect_to :root, notice: "会員登録が完了しました。"
+        end
     else
         render "new"
     end

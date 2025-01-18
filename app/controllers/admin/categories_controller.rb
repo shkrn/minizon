@@ -30,10 +30,15 @@ class Admin::CategoriesController < Admin::Base
     end
     def destroy
         @category = Category.find(params[:id])
-        if @category.destroy
-            redirect_to admin_categories_path, notice: "カテゴリを削除しました。"
+        
+        if @category.items.exists?
+            redirect_to admin_categories_path, notice: "カテゴリに商品が登録されているため削除できません。"
         else
-            redirect_to admin_categories_path, alert: "カテゴリの削除に失敗しました。"
+            if @category.destroy
+                redirect_to admin_categories_path, notice: "カテゴリを削除しました。"
+            else
+                redirect_to admin_categories_path, notice: "カテゴリの削除に失敗しました。"
+            end
         end
     end
 end

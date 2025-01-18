@@ -1,0 +1,38 @@
+<% @page_title = "出品者検索" %>
+<h1><%= @page_title %></h1>
+<p><%= @users.count %>件ヒットしました。</p> 
+
+<%= form_tag :usersearch_users, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q] %>
+  <%= submit_tag "検索" %>
+<% end %>
+
+<% if @users.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>ビジネスネーム</th>
+        <th>出品数</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td style="text-align: left"><%= user.id %></td>
+          <td><%= link_to user.business_name, user_path(user) %></td>
+          <td><%= user.items.count %></td>
+          <td>
+          <%#= link_to "編集", [:edit, :admin,user] %> 
+          <%= link_to "詳細", user_path(user)%>  | 
+          <%= link_to "出品商品",  user_items_path(user) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @users %>
+<% else %>
+  <p>会員情報がありません。</p>
+<% end %>

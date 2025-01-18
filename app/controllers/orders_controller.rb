@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
             item_id: ci.item_id,
             quantity: ci.quantity,
             price: ci.price,
-            delivery: 0
+            delivery: "undelivered"
           )
           ###########
           item = Item.find(ci.item_id)

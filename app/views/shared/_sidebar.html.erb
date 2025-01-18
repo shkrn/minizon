@@ -1,5 +1,6 @@
 <%= render "shared/login_form" unless current_user%>
 
+
 <h2>カテゴリ</h2>
   <%
     categories = Category.order(posted_at: :desc)
@@ -28,3 +29,4 @@
 <% end %>
 
 <%= link_to "リセット", items_path, method: :get, class: "btn" %>
+<%= link_to "出品者検索", users_path %>

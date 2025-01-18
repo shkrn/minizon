@@ -8,11 +8,15 @@
   <%= menu_link_to "アカウントの削除", account_path,method: :delete,data:{confirm:"本当に削除しますか？"} %>
 <% if !current_user.admin? %>
   <%= menu_link_to "行ったレビュー一覧", user_reviews_path(current_user) %>
+  <% if current_user.seller? %>
+    <%= menu_link_to "受けたレビューを表示", seller_reviews_path %>
+  <% end %>
   <%= menu_link_to "お気に入り履歴",  favorites_users_path%>
   <%= menu_link_to "問い合わせ一覧", rooms_path %>
-<% elsif %>
+<% elsif current_user.admin? %>
   <%= menu_link_to "管理者TOP", admin_root_path %>
 <% end %>
+  <%= menu_link_to "出品者検索", users_path %>
 </ul>
 
 <%= render "shared/user_userbody" %>

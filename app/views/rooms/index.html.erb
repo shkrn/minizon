@@ -2,6 +2,27 @@
 
 <h1><%= @page_title %></h1>
 
+<ul class="toolbar">
+
+  <% if login? && !current_user.admin? %>
+      <% if @is_room == true %>
+        <%= link_to '管理者メッセージへ', room_path(@room_id) %>
+      <% else %>
+        <%= form_for @room do |f| %>
+          <%= fields_for @entry do |e| %>
+            <%= e.hidden_field :user_id, value: nil %>
+          <% end %>
+          <%= f.button type: :submit do %>
+            管理者メッセージを送る
+          <% end %>
+        <% end %>
+      <% end %>
+  <% end %>
+
+</ul>
+
+
+
 <% if @another_entries.present? %>
     <% @another_entries.each do |entry| %>
     <%#= link_to room_path(entry.room) do %>

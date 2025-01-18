@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     before_action :login_required, only: [:favorites]
     def index
+        @users = User.where(status: "seller").order("id").page(params[:page]).per(30)
     end
 
     def show
@@ -47,6 +48,17 @@ class UsersController < ApplicationController
     def favorites
         @favorite_users = current_user.favorite_users.order(created_at: :desc)
         @favorite_items = current_user.favorite_items.order(created_at: :desc)
+    end
+
+    def usersearch
+        @sellers = User.where(status: "seller")
+        @users = @sellers.where("business_name LIKE ?", "%#{params[:q]}%").page(params[:page]).per(30)
+        render "index"
+    end
+
+    def search
+        @users = User.search(params[:q]).page(params[:page]).per(30)
+        render "index"
     end
 
 end

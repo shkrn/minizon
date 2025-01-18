@@ -12,10 +12,12 @@
     <th><%= form.label :given_name, "名" %></th>
     <td><%= form.text_field :given_name %></td>
   </tr>
-  <tr>
-    <th><%= form.label :full_name, "氏名" %></th>
-    <td><%= form.text_field :full_name %></td>
-  </tr>
+  <% if !@user.new_record? %>
+    <tr>
+      <th><%= form.label :full_name, "氏名" %></th>
+      <td><%= form.label :full_name, @user.full_name %></td>
+    </tr>
+  <% end %>
   <% if !current_user&.admin? %>
     <tr>
       <th><%= form.label :business_name, "ビジネスネーム" %></th>

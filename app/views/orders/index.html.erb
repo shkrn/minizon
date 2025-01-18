@@ -26,14 +26,12 @@
             <td><%= order_item.quantity * order_item.price %></td>
             <td><%= I18n.t("enums.order_item.delivery.#{order_item.delivery}") %></td>
               <% if order_item.undelivered? || order_item.shipped? %>
-                <td><%= link_to "キャンセル", order_item_path(order_item), 
-                                method: :delete, 
-                                data: { confirm: "本当にキャンセルしますか？" } %></td>
+                <td><%= link_to "キャンセル", cancel_order_item_path(order_item),method: :patch,data: { confirm: "キャンセルしてもよろしいですか？" } %> </td>
               <% elsif order_item.returnable? %>
                 <td><%= link_to "返品", return_order_item_path(order_item),method: :patch,data: { confirm: "受取しましたか？" } %></td>
-            <% end %>
+              <% end %>
             <td><%= link_to "レビュー", new_item_review_path(item_id: order_item.item_id) %></td>
-            <td><%= link_to "詳細", order_item_path(order_item) %></td>
+            <td><%= link_to "詳細/配送状況", order_item_path(order_item) %></td>
           </tr>
         <% end %>
       </tbody>

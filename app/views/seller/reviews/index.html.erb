@@ -1,0 +1,32 @@
+<h1>出品商品に対するレビュー</h1>
+
+<% if @reviews.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>商品名</th>
+        <th>ユーザー</th>
+        <th>評価</th>
+        <th>コメント</th>
+        <th>投稿日時</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reviews.each do |review| %>
+        <tr>
+          <td><%= link_to review.item.name, item_path(review.item) %></td>
+          <td><%= link_to review.user.id, seller_user_path(review.user) %></td>
+          <td><%= review.rating %></td>
+          <td><%= review.content %></td>
+          <td><%= review.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+          <td>
+              <%= link_to "通報", report_seller_review_path(review.item, review), method: :patch %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>レビューはまだありません。</p>
+<% end %>

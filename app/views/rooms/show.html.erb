@@ -1,5 +1,5 @@
 
-  <h2><%= "#{@another_entry.user.display_name}との問い合わせ" %></h2>
+  <h2><%= "#{@another_entry&.user&.display_name || '管理者'}との問い合わせ" %></h2>
 
 
 <% if @messages.present? %>

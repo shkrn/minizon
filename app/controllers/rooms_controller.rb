@@ -3,6 +3,23 @@ class RoomsController < ApplicationController
     def index
         myroom_id = current_user.entries.pluck(:room_id)
         @another_entries = Entry.where(room_id: myroom_id).where.not(user_id: current_user.id)
+
+        if login?
+            @current_entry = Entry.where(user_id: current_user.id)
+            @another_entry = Entry.where(user_id: nil)
+            @room = Room.new
+            @entry = Entry.new
+                @current_entry.each do |current|
+                    @another_entry.each do |another|
+                        if current.room_id == another.room_id
+                            @is_room = true
+                            @room_id = current.room_id
+                        end
+                    end
+                end
+        end
+
+
     end
     
     def show

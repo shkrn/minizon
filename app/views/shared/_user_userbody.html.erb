@@ -45,6 +45,14 @@
   </tr>
   <tr>
     <th>ユーザー種別</th>
-    <td><%= @user.seller? ? "出品者" : "購入者" %></td>
+    <td>
+    <% if @user.admin? %>
+        管理者
+      <% elsif @user.seller? %>
+        出品者
+      <% else %>
+        購入者
+      <% end %>
+    </td>
   </tr>
 </table>

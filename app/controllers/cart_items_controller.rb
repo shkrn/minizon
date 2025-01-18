@@ -71,7 +71,7 @@ class CartItemsController < ApplicationController
 
     def destroy
         #カートからアイテムを削除する
-        @cart_item = CartItem.find(params[:id])
+        @cart_item = CartItem&.find(params[:id])
         @cart_item.destroy
         redirect_to cart_path, notice: 'カートからアイテムを削除しました。'
     end

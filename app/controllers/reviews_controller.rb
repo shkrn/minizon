@@ -1,12 +1,16 @@
 class ReviewsController < ApplicationController
-    before_action :login_required, only: [:new, :create, :edit, :update, :destroy]
+    before_action :login_required, only: [:create, :edit, :update, :destroy]
     def index
         @reviews = Review.order(created_at: :desc).page(params[:page]).per(30)
         @myreviews = current_user.reviews.order(created_at: :desc)
     end
     def new
-        @review = Review.new
-        @item = Item.find(params[:item_id])
+        if login?
+            @review = Review.new
+            @item = Item.find(params[:item_id])
+        else
+            redirect_to item_path(params[:item_id]), notice: "レビューの投稿にはログインが必要です"
+        end
     end
     def create
         @review = Review.new(params[:review])

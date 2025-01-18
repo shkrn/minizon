@@ -1,14 +1,12 @@
-<% @page_title = "注文履歴情報の詳細" %>
+<% @page_title = "配送状況と注文情報の詳細" %>
 
 <h1><%= @page_title %></h1>
 
 <div class="toolbar">
  <% if @order_item.undelivered? || @order_item.shipped? %>
-    <%= link_to "キャンセル", order_item_path(@order_item), 
-                    method: :delete, 
-                    data: { confirm: "本当にキャンセルしますか？" } %>
-  <% elsif @order_item.delivered? %>
-      <%= link_to "返品", order_item_path(@order_item), method: :patch, data: { confirm: "受取しましたか？" } %>
+<td><%= link_to "キャンセル", cancel_order_item_path(@order_item),method: :patch,data: { confirm: "キャンセルしてもよろしいですか？" } %> </td>
+<% elsif @order_item.returnable? %>
+<td><%= link_to "返品", return_order_item_path(@order_item),method: :patch,data: { confirm: "受取しましたか？" } %></td>
 <% end %>
 <%= link_to "レビュー", new_item_review_path(item_id: @order_item.id) %>
 <%= link_to "注文履歴の一覧に戻る", orders_path %>

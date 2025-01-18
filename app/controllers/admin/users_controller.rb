@@ -42,13 +42,18 @@ class Admin::UsersController < Admin::Base
     end
 
     def destroy
-        @user = User.find(params[:id])
+        @user = User.find_by_id(params[:id])
+        if @user.nil?
+            redirect_to admin_users_path, notice: "ユーザーが見つかりません"
+            return
+          end
         if @user.can_destroy?
             @user.destroy
             redirect_to admin_users_path, notice: "ユーザーを削除しました"
             
         else
-            redirect_to admin_users_path, notice: "配送中の商品があるため削除できません"
+            #redirect_to admin_users_path, notice: "配送中の商品があるため削除できません"
+            redirect_to admin_users_path, notice: "この出品者を削除できません"
         end
     end
 
@@ -57,7 +62,7 @@ class Admin::UsersController < Admin::Base
         @favorite_items = current_user.favorite_items.order(created_at: :desc)
     end
     def search
-        @users = User.search(params[:q]).page(params[:page]).per(30)
+        @users = User.search(params[:status],params[:q]).page(params[:page]).per(30)
         render "index"
     end
 end

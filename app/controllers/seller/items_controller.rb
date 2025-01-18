@@ -21,7 +21,7 @@ class Seller::ItemsController < Seller::Base
         @item = Item.new(params[:item])
         @item.user_id = current_user.id
         if @item.save
-            redirect_to [:seller,@item], notice: "情報を登録しました。商品IDは#{@item.id}です。"
+            redirect_to seller_items_path, notice: "情報を登録しました。商品IDは#{@item.id}です。"
         else
             render "new"
         end

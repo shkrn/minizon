@@ -34,7 +34,7 @@ class Admin::AdminsController < Admin::Base
         redirect_to :admin_admins, notice: "会員を削除しました。"
     end
     def search
-        @admins = Admin.search(params[:sex],params[:q])
+        @admins = Admin.search(params[:q]).page(params[:page]).per(15)
         render "index"
     end
 end

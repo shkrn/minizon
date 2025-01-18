@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_05_101854) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "address", null: false
-    t.integer "phonenumber", null: false
+    t.string "phonenumber", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_05_101854) do
   end
 
   create_table "entries", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.integer "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -107,7 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_05_101854) do
     t.integer "user_id", null: false
     t.integer "category_id", null: false
     t.string "name", null: false
-    t.integer "code", null: false
+    t.string "code", null: false
     t.integer "stock", null: false
     t.string "description", null: false
     t.boolean "new", null: false
@@ -181,7 +181,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_05_101854) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "address", null: false
-    t.integer "phonenumber", null: false
+    t.string "phonenumber", null: false
     t.integer "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

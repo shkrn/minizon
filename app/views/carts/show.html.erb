@@ -3,6 +3,9 @@
   <div class="cart-container">
     <div class="cart-items">
     <h1>ショッピングカート</h1>
+      <% if @cart_items.blank? %>
+        <p>カートに商品がありません</p>
+      <% end %>
       <% @cart_items&.each do |ci| %>
         <div class="cart-item">
           <div class="item-image">
@@ -26,21 +29,20 @@
       <% end %>
     </div>
     <div class="cart-total">
-      <%# if @cart_items.present? %>
-        <h3>小計 (<%= @cart_items.sum(:quantity) || 0%>個の商品)(税込)</h3>
-        <div class="total-price">
-          <span>: <%= currency%><%= current_cart.price %></span>
-        </div>
-        <%= form_with url: order_confirm_path, local: true do |form| %>
-          <% @cart_items.each do |ci| %>
+      
+      <h3>小計 (<%= @cart_items.sum(:quantity) || 0%>個の商品)(税込)</h3>
+      <div class="total-price">
+        <span>: <%= currency%><%= current_cart.price %></span>
+      </div>
+      <%= form_with url: order_confirm_path, local: true do |form| %>
+        <% if @cart_items&.exists? %>
+          <% @cart_items&.each do |ci| %>
             <%= form.hidden_field :item_id, value: ci.id %> 
             <%= form.hidden_field :quantity, value: ci.quantity %>
             <%= form.hidden_field :price, value: ci.price %>
           <% end %> 
-          <%= form.submit "レジに進む", class: "buy-button" %>
         <% end %>
-      <%# else %>
-        <!--<p>カートに商品がありません</p>-->
-      <%# end %>
+        <%= form.submit "レジに進む", class: "buy-button" %>
+      <% end %>
     </div>
   </div>

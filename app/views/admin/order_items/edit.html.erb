@@ -3,7 +3,7 @@
 <h1><%= @page_title %></h1>
 
 <div class="toolbar">
-<%= link_to "注文管理の一覧に戻る", admin_order_path %>
+<%= link_to "注文管理の一覧に戻る", admin_order_item_path %>
 </div>
 
 <%= form_for [:admin,@order,@order_item] do |form| %>

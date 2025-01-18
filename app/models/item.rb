@@ -9,14 +9,16 @@ class Item < ApplicationRecord
 
     has_one_attached :item_picture
     attribute :new_item_picture
-    attribute :remove_item_picture
+    attribute :remove_item_picture, :boolean
 
 
     enum status: {
         available: 0,
         unavailable: 1
     }
-
+    
+    #作成時に画像が必須
+    #validates :new_item_picture, presence: true, on: :create
 
     validates :name, presence: true, length: { maximum: 50 }
     validates :code, presence: true, length: { maximum: 30 }
@@ -25,16 +27,15 @@ class Item < ApplicationRecord
     validates :status, presence: true
     validates :stock, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 99 }
 
-    validate :prevent_remove_without_new_image, on: :update
+    #validate :prevent_remove_without_new_image, on: :update
+    # private
 
-    private
-
-    def prevent_remove_without_new_image
-        # 更新時に remove_item_picture が指定され、かつ新しい画像がない場合はエラーにする
-        if remove_item_picture && new_item_picture.blank?
-        errors.add(:item_picture, "を削除できません。新しい画像をアップロードしてください。")
-        end
-    end
+    # def prevent_remove_without_new_image
+    #     # 更新時に remove_item_picture が指定され、かつ新しい画像がない場合はエラーにする
+    #     if remove_item_picture && new_item_picture.blank?
+    #     errors.add(:item_picture, "を削除できません。新しい画像をアップロードしてください。")
+    #     end
+    # end
 
     validate if: :new_item_picture do
         if new_item_picture.respond_to?(:content_type)

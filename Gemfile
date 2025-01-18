@@ -37,7 +37,7 @@ gem "better_errors"
 gem "binding_of_caller"
 gem "rails-i18n", "~> 7.0"
 
-gem "email_validator", "~> 1.6"
+gem "email_validator", "~> 2.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

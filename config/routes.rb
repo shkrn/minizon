@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :items do
       get :search, on: :collection
     end
+    get :usersearch, on: :collection
   end
 
   resources :items, only: [:index, :show] do
@@ -36,13 +37,18 @@ Rails.application.routes.draw do
   resources :orders
   resources :order_items do
     patch :return, on: :member
+    patch :cancel, on: :member
   end
 
   get "login" => "top#login"
   post "login" => "sessions#create"
 
   resources :messages, only: [:create]
-  resources :rooms, only: [:create, :index, :show, :destroy]
+  resources :rooms, only: [:create, :index, :show, :destroy] do
+    collection do
+      post 'admin_message', to: 'rooms#admin_message'
+    end
+  end
 
   namespace :seller do
     root "top#index"
@@ -52,6 +58,9 @@ Rails.application.routes.draw do
     resources :orders
     resources :order_items
     resources :users
+    resources :reviews, only: [:index, :update] do
+      patch :report, on: :member
+    end
   end
 
   namespace :admin do
@@ -69,6 +78,9 @@ Rails.application.routes.draw do
       resources :reviews, only: [:index, :destroy]
       get :search, on: :collection
       resources :items do
+        get :search, on: :collection
+      end
+      resources :orders do
         get :search, on: :collection
       end
     end

@@ -18,16 +18,27 @@ class User < ApplicationRecord
     after_create :create_cart
 
     attr_accessor :current_password
-    validates :password, presence: { if: :current_password }, length: {minimum:8,maximum:16}, format: { with: /\A[[:alnum:][:punct:]]+\z/ }
-    validates :full_name, length: { maximum: 20 }
+    validates :password,  presence: { if: :current_password }, 
+                          length: {minimum:8,maximum:16},
+                          format: { with: /\A[a-zA-Z0-9\s\-_\.!]+\z/ },
+                          on: :create
 
+    validates :password,  presence: { if: :current_password }, 
+                          length: {minimum:8,maximum:16},
+                          format: { with: /\A[a-zA-Z0-9\s\-_\.!]+\z/ },
+                          allow_blank: true,
+                          on: :update
+                          
+    validates :full_name, length: { maximum: 20 }
     validates :family_name, presence:true ,length: { maximum: 15 }
     validates :given_name, presence:true ,length: { maximum: 15 }
     validates :business_name, presence:true ,length: { minimum: 2, maximum: 15 }, uniqueness: true
-    validates :email, presence:true , uniqueness: true
+    validates :email, presence: true, uniqueness: true, email: { 
+      mode: :strict
+    }
     validates :address, presence:true ,length: { maximum: 50 }
     validates :phonenumber, length: { minimum: 8, maximum: 20 },
-                            format: { with: /\A\d-?\d+\z/}
+                            format: { with: /\A\d+(-?\d+)*\z/}
 
 
     def display_name
@@ -37,28 +48,46 @@ class User < ApplicationRecord
         full_name
       end
     end
-    
-  private def create_cart
-    
-    unless self.cart.present?
-      Cart.create(user: self)
-      puts "############カートを作成しました。###############"
+
+    def admin?
+      false
     end
-  end
+    
+    def can_destroy?
+      !(
+        self.items.joins(:order_items)
+          .where(order_items: { delivery: ['undelivered','returning'] })
+          .exists? ||
+        self.items.exists?
+      )
+      
+    end
 
 
-  def can_destroy?
-    !self.items.joins(:order_items)
-    .where(order_items: { delivery: ['undelivered','returning'] })
-    .exists?
-  end
+    ########################################################################
+    ###################       以下プライベートメソッド        ##################
 
-  def admin?
-    false
-  end
+    before_save :set_fullname
+
+    private
+
+    def set_fullname
+      self.full_name = "#{family_name} #{given_name}"
+    end
+
+    private def create_cart
+      
+      unless self.cart.present?
+        Cart.create(user: self)
+        puts "############カートを作成しました。###############"
+      end
+    end
+
+
+  
 
   class << self
-    def search(query)
+    def search(status,query)
         rel = order("id")
         if query.present?
             rel = rel.where(
@@ -71,6 +100,9 @@ class User < ApplicationRecord
               "%#{query}%", 
               "%#{query}%"
             )
+        end
+        if status != "null"
+            rel = rel.where(status: status)
         end
         rel
     end

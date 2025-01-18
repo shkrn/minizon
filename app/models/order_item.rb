@@ -3,11 +3,12 @@ class OrderItem < ApplicationRecord
     belongs_to :item
     validates :quantity, numericality: { only_integer: true, greater_than: 0 }
     enum delivery: {
-        undelivered: 0,
-        shipped: 1,
-        delivered: 2,
-        returning: 91,
-        returned: 92
+        undelivered: 1,
+        shipped: 2,
+        delivered: 3,
+        canceled: 4,
+        returning: 5,
+        returned: 6
         }
 
     def returnable?

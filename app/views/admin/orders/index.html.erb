@@ -1,13 +1,13 @@
 <% if params[:user_id].present? %>
   <% @page_title = @user.display_name + "の注文履歴" %>
+  <div class="toolbar">
+    <%= link_to "ユーザー情報", admin_user_path(params[:user_id]) %>
+  </div> 
 <% else %>
 <% @page_title = "注文履歴" %>
 <% end %>
 <h1><%= @page_title %></h1>
 
-<div class="toolbar">
-  <%= link_to "ユーザー情報", admin_user_path(params[:user_id]) %>
-</div> 
 
 <% if @order_items.present? %>
   <table class="list">
